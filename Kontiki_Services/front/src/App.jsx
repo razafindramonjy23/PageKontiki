@@ -3,6 +3,7 @@ import * as React from 'react'
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar.jsx';
 import Accueil from './components/pages/Accueil/Accueil.jsx';
+
 // import Services from './components/pages/Services/Services.jsx';
 // import A_propos from './components/pages/A_propos/A_propos.jsx';
 import Test from './components/pages/Test/Test.jsx';
@@ -11,7 +12,7 @@ import TestDev from './components/pages/Test/allTest/testDev/TestDev.jsx';
 // import Contact from './components/pages/Contact/Contact.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import EditeurDeCode from './components/pages/Test/allTest/testDev/Code-editor.jsx';
-import Entretien from './components/pages/Test/allTest/testDev/Entretien.jsx'
+import EntretienDev from './components/pages/Test/allTest/testDev/EntretienDev.jsx'
 import Services from './components/pages/Services/Services.jsx'
 import Contact from './components/pages/Contact/Contact.jsx'
 
@@ -36,7 +37,7 @@ function App() {
         <Route path='/contact' element={<Contact />} />
         {/* <Route path='/apropos' element={<A_propos />} /> */}
         <Route path='/codeEditor' element={<EditeurDeCode />} />
-        <Route path='/entretien' element={<Entretien />} />
+        <Route path='/entretien' element={<EntretienDev />} />
         <Route path='/services' element={<Services />} />
 
         {/* TESTES */}
