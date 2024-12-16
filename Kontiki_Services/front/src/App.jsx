@@ -4,21 +4,25 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar.jsx';
 import Accueil from './components/pages/Accueil/Accueil.jsx';
 
-// import Services from './components/pages/Services/Services.jsx';
-// import A_propos from './components/pages/A_propos/A_propos.jsx';
-import Test from './components/pages/Test/Test.jsx';
-import TestDev from './components/pages/Test/allTest/testDev/TestDev.jsx';
-// import TestTM from './components/pages/Test/allTest/testTM/TestTM.jsx';
-// import Contact from './components/pages/Contact/Contact.jsx';
+
+import Test from './components/pages/Test/Recrutement.jsx';
+
 import Footer from './components/Footer/Footer.jsx';
-import EditeurDeCode from './components/pages/Test/allTest/testDev/Code-editor.jsx';
-import EntretienDev from './components/pages/Test/allTest/testDev/Entretien.jsx'
+
 import Services from './components/pages/Services/Services.jsx'
 import Contact from './components/pages/Contact/Contact.jsx'
+import A_propos from './components/pages/A_propos/Apropos.jsx';
 
 import './App.scss';
-// import Activites from './components/pages/A_propos/actvt/Activites.jsx';
-// import DevActivites from './components/pages/A_propos/actvt/dev/DevActivites.jsx';
+
+
+// import EditeurDeCode from './components/pages/Test/allTest/testDev/Code-editor.js';
+// import EntretienDev from './components/pages/Test/allTest/testDev/Entretien.js'
+
+
+// RECRUTEMENT
+import EditeurDeCode from './components/pages/Test/allTest/testDev/Code-editor.jsx'
+import EntretienDev from './components/pages/Test/allTest/testDev/EntretienDev.jsx'
 
 
 function App() {
@@ -37,14 +41,15 @@ function App() {
         <Route path='/contact' element={<Contact />} />
         {/* <Route path='/apropos' element={<A_propos />} /> */}
         <Route path='/codeEditor' element={<EditeurDeCode />} />
-        <Route path='/entretien' element={<EntretienDev />} />
+        <Route path='/entretienDev' element={<EntretienDev />} />
         <Route path='/services' element={<Services />} />
 
         {/* TESTES */}
-        <Route path='testDev' element={<TestDev />} />
+        {/* <Route path='testDev' element={<TestDev />} /> */}
         {/* <Route path='testTM' element={<TestTM />} /> */}
 
         {/* A PROPOS  */}
+        <Route path='A_propos' element={<A_propos />} />
         {/* <Route path='activites' element={<Activites />} /> */}
         {/* <Route path='dev' element={<DevActivites/>} /> */}
 

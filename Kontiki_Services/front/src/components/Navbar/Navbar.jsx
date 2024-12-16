@@ -5,15 +5,15 @@ import { Link } from 'react-router-dom';
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState('/accueil'); // État pour l'onglet actif
+  const [activeLink, setActiveLink] = useState('/accueil'); 
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   const handleLinkClick = (link) => {
-    setActiveLink(link); // Met à jour l'onglet actif lorsque vous cliquez
-    setIsMenuOpen(false); // Ferme le menu mobile après un clic
+    setActiveLink(link); 
+    setIsMenuOpen(false); 
   };
 
   return (
@@ -46,18 +46,18 @@ function Navbar() {
               Services
             </Link>
             <Link 
-              to="/entretien" 
+              to="/A_propos" 
               className={`text-gray-800 hover:text-blue-600 transition ${activeLink === '/entretien' ? 'text-blue-600 font-semibold' : ''}`}
               onClick={() => handleLinkClick('/entretien')}
             >
-              Entretien
+              A propos de nous
             </Link>
             <Link 
               to="/test" 
               className={`text-gray-800 hover:text-blue-600 transition ${activeLink === '/test' ? 'text-blue-600 font-semibold' : ''}`}
               onClick={() => handleLinkClick('/test')}
             >
-              Coder
+              Rejoignez-nous
             </Link>
             <Link 
               to="/contact" 
@@ -69,11 +69,11 @@ function Navbar() {
           </div>
 
           {/* Bouton CTA Desktop */}
-          <div className="hidden md:block">
+          {/* <div className="hidden md:block">
             <button className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">
               Démarrer
             </button>
-          </div>
+          </div> */}
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">
@@ -118,9 +118,9 @@ function Navbar() {
               >
                 Contact
               </a>
-              <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">
+              {/* <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">
                 Démarrer
-              </button>
+              </button> */}
             </div>
           </div>
         )}
