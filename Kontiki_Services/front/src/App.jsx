@@ -12,7 +12,7 @@ import TestDev from './components/pages/Test/allTest/testDev/TestDev.jsx';
 // import Contact from './components/pages/Contact/Contact.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import EditeurDeCode from './components/pages/Test/allTest/testDev/Code-editor.jsx';
-import EntretienDev from './components/pages/Test/allTest/testDev/EntretienDev.jsx'
+import EntretienDev from './components/pages/Test/allTest/testDev/Entretien.jsx'
 import Services from './components/pages/Services/Services.jsx'
 import Contact from './components/pages/Contact/Contact.jsx'
 
