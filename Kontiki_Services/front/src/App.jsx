@@ -7,6 +7,7 @@ import Accueil from './components/pages/Accueil/Accueil.jsx';
 
 import Test from './components/pages/Test/Recrutement.jsx';
 
+
 import Footer from './components/Footer/Footer.jsx';
 
 import Services from './components/pages/Services/Services.jsx'
@@ -23,6 +24,8 @@ import './App.scss';
 // RECRUTEMENT
 import EditeurDeCode from './components/pages/Test/allTest/testDev/Code-editor.jsx'
 import EntretienDev from './components/pages/Test/allTest/testDev/EntretienDev.jsx'
+import Admin from './components/pages/Administration/Admin.jsx';
+
 
 
 function App() {
@@ -47,6 +50,7 @@ function App() {
         {/* TESTES */}
         {/* <Route path='testDev' element={<TestDev />} /> */}
         {/* <Route path='testTM' element={<TestTM />} /> */}
+        <Route path='/admin' element={<Admin />} />
 
         {/* A PROPOS  */}
         <Route path='A_propos' element={<A_propos />} />

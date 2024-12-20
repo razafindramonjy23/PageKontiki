@@ -59,12 +59,21 @@ function Navbar() {
             >
               Rejoignez-nous
             </Link>
+            
             <Link 
               to="/contact" 
               className={`text-gray-800 hover:text-blue-600 transition ${activeLink === '/contact' ? 'text-blue-600 font-semibold' : ''}`}
               onClick={() => handleLinkClick('/contact')}
             >
               Contact
+            </Link>
+
+            <Link 
+              to="/admin" 
+              className={`text-gray-800 hover:text-blue-600 transition ${activeLink === '/contact' ? 'text-blue-600 font-semibold' : ''}`}
+              onClick={() => handleLinkClick('/contact')}
+            >
+              Administration
             </Link>
           </div>
 
@@ -117,6 +126,14 @@ function Navbar() {
                 onClick={() => handleLinkClick('/contact')}
               >
                 Contact
+              </a>
+
+              <a 
+                href="#" 
+                className={`block py-2 text-gray-800 hover:text-blue-600 ${activeLink === '/contact' ? 'text-blue-600 font-semibold' : ''}`}
+                onClick={() => handleLinkClick('/contact')}
+              >
+                Administration
               </a>
               {/* <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">
                 Démarrer
