@@ -1289,33 +1289,54 @@ function Entretien() {
     }
   };
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-28">
-      <div className="bg-white shadow-xl rounded-lg w-full max-w-2xl p-6">
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 flex items-center justify-center p-8 md:p-28">
+      {/* Container principal avec effet de verre */}
+      <div className="bg-white/90 backdrop-blur-sm shadow-2xl rounded-lg w-full max-w-2xl p-8 border border-white/20">
+        {/* En-tête avec logo ou titre */}
+        <div className="text-center mb-8">
+          <h2 className="text-2xl font-bold text-blue-900">Formulaire d'inscription</h2>
+          <div className="flex justify-center mt-2">
+            <div className="w-24 h-1 bg-yellow-400"></div>
+          </div>
+        </div>
+
         {/* Barre de progression */}
-        <div className="flex justify-between mb-6">
+        <div className="flex justify-between mb-8 relative">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13].map((step) => (
-            <div
-              key={step}
-              className={`w-full h-2 mx-1 rounded-full ${
-                completedSteps.includes(step) || currentStep >= step
-                  ? "bg-amber-300"
-                  : "bg-gray-300"
-              }`}
-            />
+            <div key={step} className="flex-1 px-1">
+              <div
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  completedSteps.includes(step) || currentStep >= step
+                    ? "bg-yellow-400 shadow-lg"
+                    : "bg-gray-200"
+                }`}
+              />
+              <div
+                className={`mt-2 text-xs text-center ${
+                  completedSteps.includes(step) || currentStep >= step
+                    ? "text-blue-900"
+                    : "text-gray-400"
+                }`}
+              >
+                {step}
+              </div>
+            </div>
           ))}
         </div>
 
         {/* Contenu de l'étape */}
-        <div className="min-h-[400px]">{renderStepContent()}</div>
+        <div className="min-h-[400px] bg-white rounded-lg p-6 shadow-inner">
+          {renderStepContent()}
+        </div>
 
         {/* Navigation et soumission */}
-        <div className="flex justify-between mt-6">
+        <div className="flex justify-between mt-8">
           {currentStep > 1 && (
             <button
               onClick={prevStep}
-              className="flex items-center px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300"
+              className="flex items-center px-6 py-2 bg-blue-50 text-blue-900 rounded-full hover:bg-blue-100 transition-colors duration-300"
             >
-              <ChevronLeft className="mr-2" /> Précédent
+              <ChevronLeft className="mr-2 h-5 w-5" /> Précédent
             </button>
           )}
 
@@ -1323,43 +1344,48 @@ function Entretien() {
             <button
               onClick={nextStep}
               disabled={!isStepValid(currentStep)}
-              className={`ml-auto flex items-center px-4 py-2 rounded-md ${
+              className={`ml-auto flex items-center px-6 py-2 rounded-full transition-all duration-300 ${
                 isStepValid(currentStep)
-                  ? "bg-blue-600 text-white hover:bg-blue-700"
-                  : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  ? "bg-blue-900 text-white hover:bg-blue-800"
+                  : "bg-gray-200 text-gray-400 cursor-not-allowed"
               }`}
             >
-              Suivant <ChevronRight className="ml-2" />
+              Suivant <ChevronRight className="ml-2 h-5 w-5" />
             </button>
           ) : (
             <button
               onClick={handleSubmit}
               disabled={isSubmitting || !isStepValid(currentStep)}
-              className={`ml-auto flex items-center px-4 py-2 rounded-md ${
+              className={`ml-auto flex items-center px-6 py-2 rounded-full transition-all duration-300 ${
                 isStepValid(currentStep) && !isSubmitting
-                  ? "bg-green-600 text-white hover:bg-green-700"
-                  : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  ? "bg-yellow-400 text-blue-900 hover:bg-yellow-500"
+                  : "bg-gray-200 text-gray-400 cursor-not-allowed"
               }`}
             >
               {isSubmitting ? (
-                "Envoi en cours..."
+                <span className="flex items-center">
+                  <div className="animate-spin mr-2 h-5 w-5 border-2 border-blue-900 border-t-transparent rounded-full"></div>
+                  Envoi en cours...
+                </span>
               ) : (
                 <>
-                  <CheckCircle2 className="mr-2" /> Soumettre
+                  <CheckCircle2 className="mr-2 h-5 w-5" /> Soumettre
                 </>
               )}
             </button>
           )}
         </div>
 
-        {/* Statut de soumission */}
+        {/* Messages de statut */}
         {submissionStatus === "success" && (
-          <div className="mt-4 p-4 bg-green-100 text-green-800 rounded-md">
+          <div className="mt-6 p-4 bg-green-50 border border-green-200 text-green-800 rounded-lg flex items-center">
+            <CheckCircle2 className="h-5 w-5 mr-2 text-green-500" />
             Formulaire soumis avec succès !
           </div>
         )}
         {submissionStatus === "error" && (
-          <div className="mt-4 p-4 bg-red-100 text-red-800 rounded-md">
+          <div className="mt-6 p-4 bg-red-50 border border-red-200 text-red-800 rounded-lg flex items-center">
+            <CheckCircle2 className="h-5 w-5 mr-2 text-red-500" />
             Erreur lors de la soumission. Veuillez réessayer.
           </div>
         )}
