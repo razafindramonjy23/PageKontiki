@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Send, Upload, User, Mail, Phone, Building } from 'lucide-react';
-import { Alert, AlertDescription } from './Alert';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -23,23 +22,29 @@ export default function ContactForm() {
     setStatus({ loading: true, success: false, error: null });
 
     try {
-      // Créer un FormData pour envoyer les fichiers
-      const data = new FormData();
-      Object.keys(formData).forEach(key => {
-        if (key === 'cv_file' && formData[key]) {
-          data.append('cv_file', formData[key]);
-        } else if (formData[key]) {
-          data.append(key, formData[key]);
-        }
+      const formDataToSend = new FormData();
+      
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('phone', formData.phone);
+      formDataToSend.append('company', formData.company);
+      formDataToSend.append('message', formData.message);
+      
+      if (formData.cv_file) {
+        formDataToSend.append('cv_file', formData.cv_file);
+      }
+
+      console.log('Sending data:', Object.fromEntries(formDataToSend.entries()));
+
+      const response = await fetch('http://127.0.0.1:8000/api/contact/', {
+        method: 'POST',
+        body: formDataToSend,
       });
 
-      const response = await fetch('http://localhost:8000/api/contact/', {
-        method: 'POST',
-        body: data,
-      });
+      const data = await response.json();
 
       if (!response.ok) {
-        throw new Error('Erreur lors de l\'envoi du formulaire');
+        throw new Error(data.message || 'Erreur lors de l\'envoi du formulaire');
       }
 
       setStatus({
@@ -48,7 +53,6 @@ export default function ContactForm() {
         error: null
       });
 
-      // Réinitialiser le formulaire
       setFormData({
         name: '',
         email: '',
@@ -59,6 +63,7 @@ export default function ContactForm() {
       });
 
     } catch (error) {
+      console.error('Error:', error);
       setStatus({
         loading: false,
         success: false,
@@ -86,19 +91,19 @@ export default function ContactForm() {
 
           {/* Status Messages */}
           {status.success && (
-            <Alert className="m-4 bg-green-50 text-green-800 border-green-200">
-              <AlertDescription>
+            <div className="m-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+              <p className="text-green-800 text-sm font-medium">
                 Votre message a été envoyé avec succès !
-              </AlertDescription>
-            </Alert>
+              </p>
+            </div>
           )}
 
           {status.error && (
-            <Alert className="m-4 bg-red-50 text-red-800 border-red-200">
-              <AlertDescription>
+            <div className="m-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+              <p className="text-red-800 text-sm font-medium">
                 {status.error}
-              </AlertDescription>
-            </Alert>
+              </p>
+            </div>
           )}
 
           {/* Form Content */}
