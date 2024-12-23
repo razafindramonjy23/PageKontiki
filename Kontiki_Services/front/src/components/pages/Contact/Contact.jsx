@@ -79,28 +79,28 @@ export default function ContactForm() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100">
-      <div className="max-w-4xl mx-auto px-4 py-12">
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+      <div className="max-w-4xl px-4 py-12 mx-auto">
+        <div className="overflow-hidden bg-white shadow-xl rounded-2xl">
           {/* Header */}
-          <div className="bg-blue-600 p-8 text-white">
+          <div className="p-8 text-white bg-blue-600">
             <h1 className="text-3xl font-bold text-center">Contactez Kontiki Service</h1>
-            <p className="text-center mt-2 text-blue-100">
+            <p className="mt-2 text-center text-blue-100">
               Nous sommes à votre écoute pour toute demande
             </p>
           </div>
 
           {/* Status Messages */}
           {status.success && (
-            <div className="m-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-              <p className="text-green-800 text-sm font-medium">
+            <div className="p-4 m-4 border border-green-200 rounded-lg bg-green-50">
+              <p className="text-sm font-medium text-green-800">
                 Votre message a été envoyé avec succès !
               </p>
             </div>
           )}
 
           {status.error && (
-            <div className="m-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-red-800 text-sm font-medium">
+            <div className="p-4 m-4 border border-red-200 rounded-lg bg-red-50">
+              <p className="text-sm font-medium text-red-800">
                 {status.error}
               </p>
             </div>
@@ -108,15 +108,15 @@ export default function ContactForm() {
 
           {/* Form Content */}
           <form onSubmit={handleSubmit} className="p-8 space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {/* Name Input */}
               <div className="relative">
-                <label className="text-gray-700 font-medium mb-2 block">Nom complet</label>
+                <label className="block mb-2 font-medium text-gray-700">Nom complet</label>
                 <div className="relative">
-                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                  <User className="absolute w-5 h-5 text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
                   <input
                     type="text"
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full py-3 pl-10 pr-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="Votre nom"
                     value={formData.name}
                     onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
@@ -127,12 +127,12 @@ export default function ContactForm() {
 
               {/* Email Input */}
               <div className="relative">
-                <label className="text-gray-700 font-medium mb-2 block">Email</label>
+                <label className="block mb-2 font-medium text-gray-700">Email</label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                  <Mail className="absolute w-5 h-5 text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
                   <input
                     type="email"
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full py-3 pl-10 pr-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="votre@email.com"
                     value={formData.email}
                     onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
@@ -143,12 +143,12 @@ export default function ContactForm() {
 
               {/* Phone Input */}
               <div className="relative">
-                <label className="text-gray-700 font-medium mb-2 block">Téléphone</label>
+                <label className="block mb-2 font-medium text-gray-700">Téléphone</label>
                 <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                  <Phone className="absolute w-5 h-5 text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
                   <input
                     type="tel"
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full py-3 pl-10 pr-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="Votre numéro"
                     value={formData.phone}
                     onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
@@ -159,12 +159,12 @@ export default function ContactForm() {
 
               {/* Company Input */}
               <div className="relative">
-                <label className="text-gray-700 font-medium mb-2 block">Entreprise</label>
+                <label className="block mb-2 font-medium text-gray-700">Entreprise</label>
                 <div className="relative">
-                  <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                  <Building className="absolute w-5 h-5 text-gray-400 transform -translate-y-1/2 left-3 top-1/2" />
                   <input
                     type="text"
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full py-3 pl-10 pr-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="Votre entreprise"
                     value={formData.company}
                     onChange={(e) => setFormData(prev => ({ ...prev, company: e.target.value }))}
@@ -175,9 +175,9 @@ export default function ContactForm() {
 
             {/* Message Input */}
             <div>
-              <label className="text-gray-700 font-medium mb-2 block">Message</label>
+              <label className="block mb-2 font-medium text-gray-700">Message</label>
               <textarea
-                className="w-full p-4 h-32 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full h-32 p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Votre message..."
                 value={formData.message}
                 onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
@@ -187,7 +187,7 @@ export default function ContactForm() {
 
             {/* File Upload */}
             <div className="relative">
-              <label className="text-gray-700 font-medium mb-2 block">CV / Documents</label>
+              <label className="block mb-2 font-medium text-gray-700">CV / Documents</label>
               <div className="relative">
                 <input
                   type="file"
@@ -198,25 +198,25 @@ export default function ContactForm() {
                 />
                 <label
                   htmlFor="file-upload"
-                  className="flex items-center justify-center px-6 py-3 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-500 transition-colors"
+                  className="flex items-center justify-center px-6 py-3 transition-colors border-2 border-gray-300 border-dashed rounded-lg cursor-pointer hover:border-blue-500"
                 >
-                  <Upload className="mr-2 h-5 w-5 text-gray-400" />
+                  <Upload className="w-5 h-5 mr-2 text-gray-400" />
                   <span className="text-gray-600">
                     {formData.cv_file ? formData.cv_file.name : 'Déposer votre CV ou cliquez pour sélectionner'}
                   </span>
                 </label>
               </div>
-              <p className="text-sm text-gray-500 mt-2">Formats acceptés: PDF, DOC, DOCX</p>
+              <p className="mt-2 text-sm text-gray-500">Formats acceptés: PDF, DOC, DOCX</p>
             </div>
 
             {/* Submit Button */}
             <div className="flex justify-end">
               <button
                 type="submit"
-                className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2 disabled:opacity-50"
+                className="flex items-center px-8 py-3 space-x-2 text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50"
                 disabled={status.loading}
               >
-                <Send className="h-5 w-5" />
+                <Send className="w-5 h-5" />
                 <span>{status.loading ? 'Envoi en cours...' : 'Envoyer'}</span>
               </button>
             </div>
@@ -224,5 +224,6 @@ export default function ContactForm() {
         </div>
       </div>
     </div>
+    
   );
 }
