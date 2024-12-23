@@ -4,11 +4,11 @@ from django.contrib import admin
 from .models import Contact
 
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'phone', 'created_at')  # Colonnes affichées
-    list_filter = ('created_at',)  # Filtrer par date
-    search_fields = ('name', 'email', 'phone', 'company')  # Barre de recherche
-    readonly_fields = ('created_at',)  # Champs en lecture seule
-    fieldsets = (  # Organiser les champs
+    list_display = ('name', 'email', 'phone', 'created_at')  
+    list_filter = ('created_at',)  
+    search_fields = ('name', 'email', 'phone', 'company')  
+    readonly_fields = ('created_at',)  
+    fieldsets = (  
         ("Informations personnelles", {
             'fields': ('name', 'email', 'phone', 'company')
         }),
