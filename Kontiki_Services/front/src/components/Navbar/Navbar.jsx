@@ -5,16 +5,18 @@ import { Link } from 'react-router-dom';
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState('/accueil'); 
+  const [activeLink, setActiveLink] = useState('/accueil');
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   const handleLinkClick = (link) => {
-    setActiveLink(link); 
-    setIsMenuOpen(false); 
+    setActiveLink(link);
+    setIsMenuOpen(false);
   };
+
+  
 
   return (
     <nav className="fixed w-full z-50 bg-white shadow-md">
@@ -22,56 +24,56 @@ function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <img 
-              src="/api/placeholder/150/50" 
-              alt="Kontiki logo" 
+            <img
+              src="/api/placeholder/150/50"
+              alt="Kontiki logo"
               className="h-10"
             />
           </div>
 
           {/* Menu Desktop */}
           <div className="hidden md:flex space-x-8">
-            <Link 
-              to="/accueil" 
+            <Link
+              to="/accueil"
               className={`text-gray-800 hover:text-blue-600 transition ${activeLink === '/accueil' ? 'text-blue-600 font-semibold' : ''}`}
               onClick={() => handleLinkClick('/accueil')}
             >
               Accueil
             </Link>
-            <Link 
-              to="/services" 
+            <Link
+              to="/services"
               className={`text-gray-800 hover:text-blue-600 transition ${activeLink === '/services' ? 'text-blue-600 font-semibold' : ''}`}
               onClick={() => handleLinkClick('/services')}
             >
               Services
             </Link>
-            <Link 
-              to="/A_propos" 
+            <Link
+              to="/A_propos"
               className={`text-gray-800 hover:text-blue-600 transition ${activeLink === '/entretien' ? 'text-blue-600 font-semibold' : ''}`}
               onClick={() => handleLinkClick('/entretien')}
             >
               A propos de nous
             </Link>
-            <Link 
-              to="/test" 
+            <Link
+              to="/test"
               className={`text-gray-800 hover:text-blue-600 transition ${activeLink === '/test' ? 'text-blue-600 font-semibold' : ''}`}
               onClick={() => handleLinkClick('/test')}
             >
               Rejoignez-nous
             </Link>
-            
-            <Link 
-              to="/contact" 
+
+            <Link
+              to="/contact"
               className={`text-gray-800 hover:text-blue-600 transition ${activeLink === '/contact' ? 'text-blue-600 font-semibold' : ''}`}
               onClick={() => handleLinkClick('/contact')}
             >
               Contact
             </Link>
 
-            <Link 
-              to="/admin" 
-              className={`text-gray-800 hover:text-blue-600 transition ${activeLink === '/contact' ? 'text-blue-600 font-semibold' : ''}`}
-              onClick={() => handleLinkClick('/contact')}
+            <Link
+              to="/admin"
+              className={`text-gray-800 hover:text-blue-600 transition ${activeLink === '/admin' ? 'text-blue-600 font-semibold' : ''}`}
+              onClick={() => handleLinkClick('/admin')}
             >
               Administration
             </Link>
@@ -86,8 +88,8 @@ function Navbar() {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">
-            <button 
-              onClick={toggleMenu} 
+            <button
+              onClick={toggleMenu}
               className="text-gray-800 hover:text-blue-600"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -99,42 +101,42 @@ function Navbar() {
         {isMenuOpen && (
           <div className="md:hidden absolute left-0 right-0 bg-white shadow-lg">
             <div className="px-4 pt-2 pb-4 space-y-2">
-              <a 
-                href="#" 
+              <Link
+                to = "/accueil"
                 className={`block py-2 text-gray-800 hover:text-blue-600 ${activeLink === '/accueil' ? 'text-blue-600 font-semibold' : ''}`}
                 onClick={() => handleLinkClick('/accueil')}
               >
                 Accueil
-              </a>
-              <a 
-                href="#" 
+              </Link>
+              <Link
+                to = "/services"
                 className={`block py-2 text-gray-800 hover:text-blue-600 ${activeLink === '/services' ? 'text-blue-600 font-semibold' : ''}`}
                 onClick={() => handleLinkClick('/services')}
               >
                 Services
-              </a>
-              <a 
-                href="#" 
+              </Link>
+              <Link
+                to = "/solutions"
                 className={`block py-2 text-gray-800 hover:text-blue-600 ${activeLink === '/solutions' ? 'text-blue-600 font-semibold' : ''}`}
                 onClick={() => handleLinkClick('/solutions')}
               >
                 Solutions
-              </a>
-              <a 
-                href="#" 
+              </Link>
+              <Link
+                to = "/contact"
                 className={`block py-2 text-gray-800 hover:text-blue-600 ${activeLink === '/contact' ? 'text-blue-600 font-semibold' : ''}`}
                 onClick={() => handleLinkClick('/contact')}
               >
                 Contact
-              </a>
+              </Link>
 
-              <a 
-                href="#" 
+              <Link
+                to = "/admin"
                 className={`block py-2 text-gray-800 hover:text-blue-600 ${activeLink === '/contact' ? 'text-blue-600 font-semibold' : ''}`}
-                onClick={() => handleLinkClick('/contact')}
+                onClick={() => handleLinkClick('/admin')}
               >
                 Administration
-              </a>
+              </Link>
               {/* <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">
                 Démarrer
               </button> */}
