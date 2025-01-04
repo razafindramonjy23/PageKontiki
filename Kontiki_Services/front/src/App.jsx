@@ -25,7 +25,7 @@ import './App.scss';
 import EditeurDeCode from './components/pages/Test/allTest/testDev/Code-editor.jsx'
 import EntretienDev from './components/pages/Test/allTest/testDev/EntretienDev.jsx'
 import Admin from './components/pages/Administration/Admin.jsx';
-
+import EntretienTM from './components/pages/Test/allTest/testTM/EntretienTM.jsx';
 
 
 function App() {
@@ -42,15 +42,20 @@ function App() {
         {/* <Route path='/services' element={<Services />} /> */}
         <Route path='/test' element={<Test />} />
         <Route path='/contact' element={<Contact />} />
-        {/* <Route path='/apropos' element={<A_propos />} /> */}
-        <Route path='/codeEditor' element={<EditeurDeCode />} />
-        <Route path='/entretienDev' element={<EntretienDev />} />
         <Route path='/services' element={<Services />} />
+        {/* <Route path='/apropos' element={<A_propos />} /> */}
+
+
+
+      
 
         {/* TESTES */}
         {/* <Route path='testDev' element={<TestDev />} /> */}
-        {/* <Route path='testTM' element={<TestTM />} /> */}
+        {/* <Route path='testTM' element={<testTM />} /> */}
         <Route path='/admin' element={<Admin />} />
+        <Route path='/codeEditor' element={<EditeurDeCode />} />
+        <Route path='/entretienDev' element={<EntretienDev />} />
+        <Route path='/entretienTM' element={<EntretienTM/>} />
 
         {/* A PROPOS  */}
         <Route path='A_propos' element={<A_propos />} />

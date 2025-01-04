@@ -37,7 +37,7 @@ function A_propos() {
     <>
 
 
-      <div className='h-screen font-sans'>
+      <div className='h-screen pt-20 font-sans'>
         <div className="my-8 text-center">
           <h2 className="box-border h-20 text-xl font-semibold transition-all duration-700 ease-in-out text-blue-950 md:text-4xl hover:text-5xl">
             Qui sommes nous vraiment ?

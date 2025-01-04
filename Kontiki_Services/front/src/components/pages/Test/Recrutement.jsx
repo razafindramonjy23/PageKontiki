@@ -6,7 +6,7 @@ import { FadeLeft, FadeRight, FadeUp } from "../../utility/animation";
 function Test() {
   return (
     <>
-      {/* <div className="flex justify-around h-screen font-sans bg-gradient-to-br from-blue-50 via-white to-blue-100 min-h-screen">
+      {/* <div className="flex justify-around h-screen min-h-screen font-sans bg-gradient-to-br from-blue-50 via-white to-blue-100">
         <section className="pt-60">
           <Link
             to="/codeEditor"
@@ -32,7 +32,7 @@ function Test() {
         </section>
       </div> */}
 
-      <div className=" font-sans text-center">
+      <div className="font-sans text-center pt-30 ">
         <h2 className="text-xl font-semibold transition-all duration-700 ease-in-out text-blue-950 md:text-5xl">
           KONTIKI TEST
         </h2>
@@ -80,7 +80,7 @@ function Test() {
             viewport={{ once: true }}
           >
             <Link
-              to="/testTM"
+              to="/entretienTM"
               className="block w-full p-6 mx-auto space-y-4 bg-white rounded-lg shadow-lg md:w-72 group ring-1 ring-slate-900/5 hover:bg-sky-300 hover:ring-sky-500"
             >
               <img
