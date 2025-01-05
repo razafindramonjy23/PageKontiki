@@ -163,7 +163,7 @@ const useFormSubmission = (formData) => {
   const submitForm = useCallback(async () => {
     setIsSubmitting(true);
     try {
-      const response = await fetch("/api/submit-interview", {
+      const response = await fetch("http://localhost:8000/api/testDev", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -335,7 +335,7 @@ function Entretien() {
                 Niveau de Maîtrise
               </label>
               <select
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 value={formData.technicalSkills.selectedLanguageLevel}
                 onChange={(e) =>
                   updateFormData(
@@ -368,7 +368,7 @@ function Entretien() {
               </label>
               <input
                 type="text"
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 placeholder="Votre nom complet"
                 value={formData.InformationPersonnel.nom_prenom || ""}
                 onChange={(e) =>
@@ -389,7 +389,7 @@ function Entretien() {
                 type="number"
                 min="0"
                 max="120"
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 placeholder="Votre âge"
                 value={formData.InformationPersonnel.age || ""}
                 onChange={(e) =>
@@ -404,7 +404,7 @@ function Entretien() {
               </label>
               <input
                 type="text"
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 placeholder="Votre situation matrimoniale"
                 value={
                   formData.InformationPersonnel.situation_matrimoniale || ""
@@ -424,7 +424,7 @@ function Entretien() {
                 Adresse
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Votre adresse complète"
                 value={formData.InformationPersonnel.adresse || ""}
@@ -443,7 +443,7 @@ function Entretien() {
                 Email
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Votre adresse complète"
                 value={formData.InformationPersonnel.email || ""}
@@ -463,7 +463,7 @@ function Entretien() {
               </label>
               <input
                 type="tel"
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 placeholder="Votre numéro de téléphone"
                 value={formData.InformationPersonnel.telephone || ""}
                 onChange={(e) =>
@@ -491,7 +491,7 @@ function Entretien() {
               </label>
               <input
                 type="text"
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 placeholder="Poste envisagée chez KONTIKI et qu'est-ce qui vous attire, dans le poste proposé?"
                 value={formData.SavoirFormation.poste_envisage || ""}
                 onChange={(e) =>
@@ -509,7 +509,7 @@ function Entretien() {
                 Formation et Renseignements
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Avez-vous suivi des formations ou vous êtes vous renseignés sur le poste si oui, racontez nous"
                 value={formData.SavoirFormation.formation_renseignements || ""}
@@ -528,7 +528,7 @@ function Entretien() {
                 Dernier Travail
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Quel est le dernier travai que vous avez occupé? Combien de temps? Et la raison pour laquelle vous avez quitté votre dernier emploi."
                 value={formData.SavoirFormation.dernier_travail || ""}
@@ -547,7 +547,7 @@ function Entretien() {
                 Satisfaction de Carrière
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Etes-vous aujourd'hui satisfait de votre carrière?"
                 value={formData.SavoirFormation.satisfaction_carriere || ""}
@@ -572,7 +572,7 @@ function Entretien() {
                 Retard
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="La dernière fois que vous êtes arrivé en retard, comment avez-vous géré la sitation?"
                 value={formData.Ponctualite.retard_dernier}
@@ -591,7 +591,7 @@ function Entretien() {
                 Donnez nous votre definition du retard
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Selon vous, à partir de combien de temps êtes-vous en retard?"
                 value={formData.Ponctualite.definition_retard}
@@ -616,7 +616,7 @@ function Entretien() {
                 Difficulté
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Racontez-nous la dernière fois où vous avez été confroné à une difficulté en situation professionnelle. Qu'avez-vous fait? Comment avez-vous réagi?"
                 value={formData.Tenacite.difficulte_professionnelle}
@@ -635,7 +635,7 @@ function Entretien() {
                 Activités difficiles
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Dans vos expériences professionnelle, quelles ont été les activités les plus difficiles à réaliser pour vous?"
                 value={formData.Tenacite.activites_difficiles}
@@ -654,7 +654,7 @@ function Entretien() {
                 Critiques
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Dans vos expériences professionnelle, quelles ont été les activités les plus difficiles à réaliser pour vous?"
                 value={formData.Tenacite.critique_travail}
@@ -669,7 +669,7 @@ function Entretien() {
                 Confit d'intérêts
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Dans vos expériences professionnelle, quelles ont été les activités les plus difficiles à réaliser pour vous?"
                 value={formData.Tenacite.conflit_interets}
@@ -691,7 +691,7 @@ function Entretien() {
                 Choix équipe
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Avec quels types de personnes aimez-vous le mieux travailler? Pour quel raisons?"
                 value={formData.Integration.type_personnes_preferees}
@@ -709,7 +709,7 @@ function Entretien() {
                 Remarque négative
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Un collègue vous fait une remarque négative sur la qualité de votre travail. Comment réagissez-vous?"
                 value={formData.Integration.reaction_remarque_negative}
@@ -727,7 +727,7 @@ function Entretien() {
                 Complications
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Avez-vous déjà été dépassé par la situation? Donnez-moi un exemple."
                 value={formData.Integration.depasse_par_situation}
@@ -754,7 +754,7 @@ function Entretien() {
                 Aider les autres
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Vous êtes salarié de notre société, affecté au département DEVELOPPEUR. Ce matin vous êtes occupé dans une tâche urgente et importante. L'un de vos collègues va vers vous et se plaint vivement auprès de vous, car il est en retard sur son travail parce que son ordi a des soucis (la connexion internet ne marche pas). Quelle est votre réaction?"
                 value={formData.SensDuService.reaction_collegue_probleme}
@@ -772,7 +772,7 @@ function Entretien() {
                 Agir
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Vous remarquez quil y a une tâche qui est pas faite et pourtant cette tâche ne fait pas partie de votre fiche de poste. Que faites-vous?"
                 value={formData.SensDuService.tache_non_attribuee}
@@ -790,7 +790,7 @@ function Entretien() {
                 Initiative
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Avez-vous l'esprit d'initiative? Prouvez-le à l'aIde d'exemples."
                 value={formData.SensDuService.esprit_initiative}
@@ -816,7 +816,7 @@ function Entretien() {
                 Travailler seul
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Avez-vous déjà travaillé seul? Qu'est-ce que vous avez trouvé difficile?"
                 value={formData.Autonomie.reaction_collegue_probleme}
@@ -830,7 +830,7 @@ function Entretien() {
                 Heure suplémentaire
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Le client vous demande un travail non prévu sur votre fiche de poste? Que faites-vous?"
                 value={formData.Autonomie.demande_travail_non_prevus}
@@ -856,7 +856,7 @@ function Entretien() {
                 Comment vous organisez-vous?
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Vous arrivez au bureau. Que faites-vous en premier? Comment vous organisez-vous?"
                 value={formData.Organisation.organisation_journee}
@@ -882,7 +882,7 @@ function Entretien() {
                 Vos satisfactions ancien poste
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Quelles ont été vos satisfactions dans les postes que vous avez occupés?"
                 value={formData.Satisfaction.satisfactions_postes}
@@ -901,7 +901,7 @@ function Entretien() {
                 Poste idéal
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Quel serait le poste Idéal pour vous?"
                 value={formData.Satisfaction.poste_ideal}
@@ -916,7 +916,7 @@ function Entretien() {
                 Choix entreprise
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Si on vous propose le même salaire et le même nombre d'heures, entre deux entreprises, laquelle choisissez-vous?"
                 value={formData.Satisfaction.choix_entreprises}
@@ -935,7 +935,7 @@ function Entretien() {
                 Traitement
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Quand avez-vous senti dans vos précédents postes que vous avez été bien traité?"
                 value={formData.Satisfaction.bien_traite}
@@ -950,7 +950,7 @@ function Entretien() {
                 Travailler le weekend
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Est-ce un problème si l'on vous demande de travailler le soir et/ou le week-end?"
                 value={formData.Satisfaction.travail_soir_weekend}
@@ -969,7 +969,7 @@ function Entretien() {
                 Apport pour l'entreprise
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Quelle compétence pouvez-vous apporter à cette entreprise?"
                 value={formData.Satisfaction.competence_apportee}
@@ -997,7 +997,7 @@ function Entretien() {
                 Execution python
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Expliquez brièvement le processus d'exécution d'un fichier Python"
                 value={formData.TestTechniquePython.execution_python}
@@ -1015,7 +1015,7 @@ function Entretien() {
                 specificateurs d'accès
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Nous savons que Python est un langage orienté objet, mais a-t-il des spécificateurs d'accès ?"
                 value={formData.TestTechniquePython.specificateurs_acces}
@@ -1033,7 +1033,7 @@ function Entretien() {
                 copie-superficielle-profonde
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Quand devez-vous utiliser la copie superficielle au lieu de la copie profonde, et vice versa ?"
                 value={
@@ -1053,7 +1053,7 @@ function Entretien() {
                 Utilisation de decorateurs
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Expliquez l'utilisation de décorateurs en Python. Donnez un exemple pratique de situation où vous utiliseriez un décorateur."
                 value={formData.TestTechniquePython.utilisation_decorateurs}
@@ -1071,7 +1071,7 @@ function Entretien() {
                 Gérer les exceptions
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Comment gérer les exceptions de manière robuste en Python? Donnez des exemples de situations où les exceptions seraient appropriées"
                 value={formData.TestTechniquePython.gestion_exceptions}
@@ -1090,7 +1090,7 @@ function Entretien() {
                 Capturer les exceptions
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Pouvez-vous expliquer comment une exception peut être attrapée dans un programme Python ?"
                 value={formData.TestTechniquePython.capture_exception}
@@ -1108,7 +1108,7 @@ function Entretien() {
                 threading_vs_multiprocessing
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Décrivez les différences entre le threading et le multiprocessing en Python. Quand choisiriez-vous l'un par rapport à l'autre?"
                 value={
@@ -1138,7 +1138,7 @@ function Entretien() {
                 local_state_vs_global_state
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Comparez les avantages et les inconvénients des états locaux (local state) et des états gérés globalement (global state) dans une application Vue.js ou React.js."
                 value={
@@ -1158,7 +1158,7 @@ function Entretien() {
                 userlist_component
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Créez un composant fonctionnel nommé UserList qui reçoit une liste d'utilisateurs en tant que prop et affiche leurs noms dans une liste. Assurez-vous que le composant met à jour correctement le state avec la liste d'utilisateurs. (* sur vscode)"
                 value={formData.TestTechniqueJavaScript.userlist_component}
@@ -1176,7 +1176,7 @@ function Entretien() {
                 app_component
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Créez un composant parent nommé App qui contient le state avec une liste initiale d'utilisateurs. Ce composant doit rendre le composant UserList créé précédemment et un nouveau composant UserForm qui permet d'ajouter un nouvel utilisateur à la liste. (* sur vscode)"
                 value={formData.TestTechniqueJavaScript.app_component}
@@ -1194,7 +1194,7 @@ function Entretien() {
                 userform_component
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Implémentez le composant UserForm avec un formulaire simple qui permet à l'utilisateur de saisir un nom. Lorsque le formulaire est soumis, ajoutez un nouvel utilisateur à la liste dans le state du composant parent (App). Assurez-vous que le state est mis à jour correctement. (* sur vscode)"
                 value={formData.TestTechniqueJavaScript.userform_component}
@@ -1222,7 +1222,7 @@ function Entretien() {
                 Comment vous organisez-vous?
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Mettez en place une route côté serveur (Django, Flask) qui renvoie une liste d'utilisateurs au format JSON. La liste d'utilisateurs peut être stockée dans un fichier json. (* sur vscode)"
                 value={formData.TestTechniqueFullstack.route_serveur}
@@ -1240,7 +1240,7 @@ function Entretien() {
                 Requêtes vers une base de données
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Comment optimisez-vous les requêtes vers une base de données pour améliorer les performances d'une application? Parlez de l'indexation, du caching, ou d'autres stratégies que vous avez déjà mise en œuvre dans vos expériences."
                 value={
@@ -1260,7 +1260,7 @@ function Entretien() {
                 Processus de déploiement
               </label>
               <textarea
-                className="mt-2 block w-full rounded-md border-gray-300 shadow-sm"
+                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
                 rows="3"
                 placeholder="Décrivez le processus de déploiement d'une application fullstack, en mettant l'accent sur les bonnes pratiques. Parlez de l'utilisation d'outils tels que Docker, Kubernetes, ou autres, selon votre expérience."
                 value={formData.TestTechniqueFullstack.deploiement_fullstack}
@@ -1289,11 +1289,11 @@ function Entretien() {
     }
   };
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 flex items-center justify-center p-8 md:p-28">
+    <div className="flex items-center justify-center min-h-screen p-8 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 md:p-28">
       {/* Container principal avec effet de verre */}
-      <div className="bg-white/90 backdrop-blur-sm shadow-2xl rounded-lg w-full max-w-2xl p-8 border border-white/20">
+      <div className="w-full max-w-2xl p-8 border rounded-lg shadow-2xl bg-white/90 backdrop-blur-sm border-white/20">
         {/* En-tête avec logo ou titre */}
-        <div className="text-center mb-8">
+        <div className="mb-8 text-center">
           <h2 className="text-2xl font-bold text-blue-900">Formulaire d'inscription</h2>
           <div className="flex justify-center mt-2">
             <div className="w-24 h-1 bg-yellow-400"></div>
@@ -1301,7 +1301,7 @@ function Entretien() {
         </div>
 
         {/* Barre de progression */}
-        <div className="flex justify-between mb-8 relative">
+        <div className="relative flex justify-between mb-8">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13].map((step) => (
             <div key={step} className="flex-1 px-1">
               <div
@@ -1334,9 +1334,9 @@ function Entretien() {
           {currentStep > 1 && (
             <button
               onClick={prevStep}
-              className="flex items-center px-6 py-2 bg-blue-50 text-blue-900 rounded-full hover:bg-blue-100 transition-colors duration-300"
+              className="flex items-center px-6 py-2 text-blue-900 transition-colors duration-300 rounded-full bg-blue-50 hover:bg-blue-100"
             >
-              <ChevronLeft className="mr-2 h-5 w-5" /> Précédent
+              <ChevronLeft className="w-5 h-5 mr-2" /> Précédent
             </button>
           )}
 
@@ -1350,7 +1350,7 @@ function Entretien() {
                   : "bg-gray-200 text-gray-400 cursor-not-allowed"
               }`}
             >
-              Suivant <ChevronRight className="ml-2 h-5 w-5" />
+              Suivant <ChevronRight className="w-5 h-5 ml-2" />
             </button>
           ) : (
             <button
@@ -1364,12 +1364,12 @@ function Entretien() {
             >
               {isSubmitting ? (
                 <span className="flex items-center">
-                  <div className="animate-spin mr-2 h-5 w-5 border-2 border-blue-900 border-t-transparent rounded-full"></div>
+                  <div className="w-5 h-5 mr-2 border-2 border-blue-900 rounded-full animate-spin border-t-transparent"></div>
                   Envoi en cours...
                 </span>
               ) : (
                 <>
-                  <CheckCircle2 className="mr-2 h-5 w-5" /> Soumettre
+                  <CheckCircle2 className="w-5 h-5 mr-2" /> Soumettre
                 </>
               )}
             </button>
@@ -1378,14 +1378,14 @@ function Entretien() {
 
         {/* Messages de statut */}
         {submissionStatus === "success" && (
-          <div className="mt-6 p-4 bg-green-50 border border-green-200 text-green-800 rounded-lg flex items-center">
-            <CheckCircle2 className="h-5 w-5 mr-2 text-green-500" />
+          <div className="flex items-center p-4 mt-6 text-green-800 border border-green-200 rounded-lg bg-green-50">
+            <CheckCircle2 className="w-5 h-5 mr-2 text-green-500" />
             Formulaire soumis avec succès !
           </div>
         )}
         {submissionStatus === "error" && (
-          <div className="mt-6 p-4 bg-red-50 border border-red-200 text-red-800 rounded-lg flex items-center">
-            <CheckCircle2 className="h-5 w-5 mr-2 text-red-500" />
+          <div className="flex items-center p-4 mt-6 text-red-800 border border-red-200 rounded-lg bg-red-50">
+            <CheckCircle2 className="w-5 h-5 mr-2 text-red-500" />
             Erreur lors de la soumission. Veuillez réessayer.
           </div>
         )}
