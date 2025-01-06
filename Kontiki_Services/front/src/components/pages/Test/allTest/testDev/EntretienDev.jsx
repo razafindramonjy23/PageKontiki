@@ -163,7 +163,8 @@ const useFormSubmission = (formData) => {
   const submitForm = useCallback(async () => {
     setIsSubmitting(true);
     try {
-      const response = await fetch("http://localhost:8000/api/testDev", {
+      console.log("Form Data:", formData);
+      const response = await fetch("http://localhost:8000/testDev/api/entretien/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1354,7 +1355,7 @@ function Entretien() {
             </button>
           ) : (
             <button
-              onClick={handleSubmit}
+              onClick={submitForm}
               disabled={isSubmitting || !isStepValid(currentStep)}
               className={`ml-auto flex items-center px-6 py-2 rounded-full transition-all duration-300 ${
                 isStepValid(currentStep) && !isSubmitting

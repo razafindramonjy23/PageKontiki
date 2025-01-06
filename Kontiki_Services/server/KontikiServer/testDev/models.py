@@ -2,9 +2,9 @@ from django.db import models
 
 class EntretienDev(models.Model):
     # Technical Skills
-    technical_skills_languages = models.JSONField()
-    technical_skills_frameworks = models.JSONField()
-    technical_skills_selected_language_level = models.CharField(max_length=255)
+    languages = models.JSONField(default=list)
+    frameworks = models.JSONField(default=list)
+    selectedLanguageLevel = models.CharField(max_length=255, default="")
     
     # Information Personnel
     nom_prenom = models.CharField(max_length=100)
@@ -76,8 +76,8 @@ class EntretienDev(models.Model):
     deploiement_fullstack = models.CharField(max_length=555)
     
     # Date de création et de mise à jour
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    # created_at = models.DateTimeField(auto_now_add=True)
+    # updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.nom_prenom
