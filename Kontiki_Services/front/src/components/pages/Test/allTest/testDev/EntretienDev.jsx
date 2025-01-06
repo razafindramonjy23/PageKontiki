@@ -160,21 +160,79 @@ const useFormSubmission = (formData) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionStatus, setSubmissionStatus] = useState(null);
 
+  // const submitForm = useCallback(async () => {
+  //   setIsSubmitting(true);
+  //   try {
+      
+  //     console.log("Form Data:", formData);
+  //     const response = await fetch("http://localhost:8000/testDev/api/entretien/", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         'Accept': "application/json"
+  //       },
+  //       body: JSON.stringify(formData),
+  //     });
+
+  //     if (response.ok) {
+  //       setSubmissionStatus("success");
+  //     } else {
+  //       setSubmissionStatus("error");
+  //     }
+  //   } catch (error) {
+  //     console.error("Submission error:", error);
+  //     setSubmissionStatus("error");
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // }, [formData]);
+
   const submitForm = useCallback(async () => {
     setIsSubmitting(true);
     try {
-      console.log("Form Data:", formData);
+      // Flatten nested data structure
+      const flatData = {};
+
+      // Handle technicalSkills separately
+      if (formData.technicalSkills) {
+        flatData.languages = formData.technicalSkills.languages || [];
+        flatData.frameworks = formData.technicalSkills.frameworks || [];
+        flatData.selectedLanguageLevel = formData.technicalSkills.selectedLanguageLevel || '';
+      }
+
+      // Handle other sections
+      const sections = [
+        'InformationPersonnel', 'SavoirFormation', 'Ponctualite',
+        'Tenacite', 'Integration', 'SensDuService', 'Autonomie',
+        'Organisation', 'Satisfaction', 'TestTechniquePython',
+        'TestTechniqueJavaScript', 'TestTechniqueFullstack'
+      ];
+
+      sections.forEach(section => {
+        if (formData[section]) {
+          Object.entries(formData[section]).forEach(([key, value]) => {
+            flatData[key] = value;
+          });
+        }
+      });
+
+      console.log("Flattened Form Data:", flatData);
+
       const response = await fetch("http://localhost:8000/testDev/api/entretien/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Accept": "application/json"
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(flatData),
       });
 
       if (response.ok) {
         setSubmissionStatus("success");
+        console.log("Success:", await response.json());
       } else {
+        const errorData = await response.json();
+        console.error("Validation errors:", errorData);
         setSubmissionStatus("error");
       }
     } catch (error) {
@@ -187,6 +245,9 @@ const useFormSubmission = (formData) => {
 
   return { submitForm, isSubmitting, submissionStatus };
 };
+
+
+
 function Entretien() {
   const INITIAL_FORM_DATA = {
     technicalSkills: {

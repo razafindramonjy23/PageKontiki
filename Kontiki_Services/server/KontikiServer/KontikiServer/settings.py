@@ -162,3 +162,6 @@ CORS_ALLOW_METHODS = [
     'GET',
     'OPTIONS'
 ]
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+DEBUG = True  # En développement seulement

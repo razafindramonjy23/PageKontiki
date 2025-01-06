@@ -2,9 +2,9 @@ from django.db import models
 
 class EntretienDev(models.Model):
     # Technical Skills
-    languages = models.JSONField(default=list)
-    frameworks = models.JSONField(default=list)
-    selectedLanguageLevel = models.CharField(max_length=255, default="")
+    technical_skills_languages  = models.JSONField(default=list)
+    technical_skills_frameworks  = models.JSONField(default=list)
+    technical_skills_selected_language_level = models.CharField(max_length=255, default="")
     
     # Information Personnel
     nom_prenom = models.CharField(max_length=100)
