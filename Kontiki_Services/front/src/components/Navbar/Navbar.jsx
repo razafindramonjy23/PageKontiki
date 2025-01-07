@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import Logo from "../../assets/Logo.jpg";
 import { Link } from 'react-router-dom';
 
-function Navbar() {
+const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState('/accueil');
+  const [scrolled, setScrolled] = useState(false);
+  // Dans une vraie application, cet état viendrait de votre système d'authentification
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -16,81 +26,69 @@ function Navbar() {
     setIsMenuOpen(false);
   };
 
-  
+  const navLinks = [
+    { path: '/accueil', label: 'Accueil' },
+    { path: '/services', label: 'Services' },
+    { path: '/A_propos', label: 'A propos de nous' },
+    { path: '/test', label: 'Rejoignez-nous' },
+    { path: '/contact', label: 'Contact' },
+  ];
+
+  // Ajouter le lien admin seulement si l'utilisateur est admin
+  const allLinks = isAdmin
+    ? [...navLinks, { path: '/admin', label: 'Administration' }]
+    : navLinks;
 
   return (
-    <nav className="fixed w-full z-50 bg-white shadow-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-lg' : 'bg-white/95'
+      }`}>
+      <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <div className="flex items-center">
+          {/* <div className="flex items-center">
             <img
               src="/api/placeholder/150/50"
               alt="Kontiki logo"
-              className="h-10"
+              className="w-auto h-12"
             />
+          </div> */}
+          <div className="flex items-center">
+            <span className="font-sans text-3xl font-bold">
+              <span className="text-blue-900"><span className='text-4xl'>K</span>ONTIKI</span>
+              <span className="text-amber-400"> SERVICE</span>
+            </span>
           </div>
 
           {/* Menu Desktop */}
-          <div className="hidden md:flex space-x-8">
-            <Link
-              to="/accueil"
-              className={`text-gray-800 hover:text-blue-600 transition ${activeLink === '/accueil' ? 'text-blue-600 font-semibold' : ''}`}
-              onClick={() => handleLinkClick('/accueil')}
-            >
-              Accueil
-            </Link>
-            <Link
-              to="/services"
-              className={`text-gray-800 hover:text-blue-600 transition ${activeLink === '/services' ? 'text-blue-600 font-semibold' : ''}`}
-              onClick={() => handleLinkClick('/services')}
-            >
-              Services
-            </Link>
-            <Link
-              to="/A_propos"
-              className={`text-gray-800 hover:text-blue-600 transition ${activeLink === '/entretien' ? 'text-blue-600 font-semibold' : ''}`}
-              onClick={() => handleLinkClick('/entretien')}
-            >
-              A propos de nous
-            </Link>
-            <Link
-              to="/test"
-              className={`text-gray-800 hover:text-blue-600 transition ${activeLink === '/test' ? 'text-blue-600 font-semibold' : ''}`}
-              onClick={() => handleLinkClick('/test')}
-            >
-              Rejoignez-nous
-            </Link>
-
-            <Link
-              to="/contact"
-              className={`text-gray-800 hover:text-blue-600 transition ${activeLink === '/contact' ? 'text-blue-600 font-semibold' : ''}`}
-              onClick={() => handleLinkClick('/contact')}
-            >
-              Contact
-            </Link>
-
-            <Link
-              to="/admin"
-              className={`text-gray-800 hover:text-blue-600 transition ${activeLink === '/admin' ? 'text-blue-600 font-semibold' : ''}`}
-              onClick={() => handleLinkClick('/admin')}
-            >
-              Administration
-            </Link>
+          <div className="hidden space-x-6 md:flex">
+            {allLinks.map(({ path, label }) => (
+              <Link
+                key={path}
+                to={path}
+                className={`relative px-3 py-2 text-sm font-medium transition-colors
+                  ${activeLink === path
+                    ? 'text-blue-600'
+                    : 'text-gray-700 hover:text-blue-600'
+                  }
+                  after:content-[''] after:absolute after:left-0 after:bottom-0 
+                  after:h-0.5 after:bg-blue-600 after:transition-all
+                  ${activeLink === path
+                    ? 'after:w-full'
+                    : 'after:w-0 hover:after:w-full'
+                  }`}
+                onClick={() => handleLinkClick(path)}
+              >
+                {label}
+              </Link>
+            ))}
           </div>
-
-          {/* Bouton CTA Desktop */}
-          {/* <div className="hidden md:block">
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">
-              Démarrer
-            </button>
-          </div> */}
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
               onClick={toggleMenu}
-              className="text-gray-800 hover:text-blue-600"
+              className="p-2 text-gray-600 transition-colors rounded-lg hover:text-blue-600 hover:bg-blue-50"
+              aria-label="Toggle menu"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -98,54 +96,30 @@ function Navbar() {
         </div>
 
         {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden absolute left-0 right-0 bg-white shadow-lg">
-            <div className="px-4 pt-2 pb-4 space-y-2">
+        <div className={`md:hidden transition-all duration-300 ease-in-out ${isMenuOpen
+            ? 'max-h-screen opacity-100 visible'
+            : 'max-h-0 opacity-0 invisible'
+          }`}>
+          <div className="py-2 space-y-1 bg-white rounded-b-lg shadow-lg">
+            {allLinks.map(({ path, label }) => (
               <Link
-                to = "/accueil"
-                className={`block py-2 text-gray-800 hover:text-blue-600 ${activeLink === '/accueil' ? 'text-blue-600 font-semibold' : ''}`}
-                onClick={() => handleLinkClick('/accueil')}
+                key={path}
+                to={path}
+                className={`block px-4 py-3 text-sm font-medium transition-colors
+                  ${activeLink === path
+                    ? 'bg-blue-50 text-blue-600'
+                    : 'text-gray-700 hover:bg-gray-50 hover:text-blue-600'
+                  }`}
+                onClick={() => handleLinkClick(path)}
               >
-                Accueil
+                {label}
               </Link>
-              <Link
-                to = "/services"
-                className={`block py-2 text-gray-800 hover:text-blue-600 ${activeLink === '/services' ? 'text-blue-600 font-semibold' : ''}`}
-                onClick={() => handleLinkClick('/services')}
-              >
-                Services
-              </Link>
-              <Link
-                to = "/solutions"
-                className={`block py-2 text-gray-800 hover:text-blue-600 ${activeLink === '/solutions' ? 'text-blue-600 font-semibold' : ''}`}
-                onClick={() => handleLinkClick('/solutions')}
-              >
-                Solutions
-              </Link>
-              <Link
-                to = "/contact"
-                className={`block py-2 text-gray-800 hover:text-blue-600 ${activeLink === '/contact' ? 'text-blue-600 font-semibold' : ''}`}
-                onClick={() => handleLinkClick('/contact')}
-              >
-                Contact
-              </Link>
-
-              <Link
-                to = "/admin"
-                className={`block py-2 text-gray-800 hover:text-blue-600 ${activeLink === '/contact' ? 'text-blue-600 font-semibold' : ''}`}
-                onClick={() => handleLinkClick('/admin')}
-              >
-                Administration
-              </Link>
-              {/* <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">
-                Démarrer
-              </button> */}
-            </div>
+            ))}
           </div>
-        )}
+        </div>
       </div>
     </nav>
   );
-}
+};
 
 export default Navbar;

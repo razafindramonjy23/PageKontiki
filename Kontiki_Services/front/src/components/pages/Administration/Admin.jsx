@@ -30,7 +30,7 @@ const Dashboard = () => {
   const fetchDashboardData = async () => {
     try {
       const [interviewsResponse, contactsResponse] = await Promise.all([
-        axios.get('http://localhost:8000/api/testDev/'),
+        axios.get('http://localhost:8000/testDev/api/entretien/'),
         axios.get('http://localhost:8000/api/contact/')
       ]);
 

@@ -160,33 +160,6 @@ const useFormSubmission = (formData) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionStatus, setSubmissionStatus] = useState(null);
 
-  // const submitForm = useCallback(async () => {
-  //   setIsSubmitting(true);
-  //   try {
-      
-  //     console.log("Form Data:", formData);
-  //     const response = await fetch("http://localhost:8000/testDev/api/entretien/", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         'Accept': "application/json"
-  //       },
-  //       body: JSON.stringify(formData),
-  //     });
-
-  //     if (response.ok) {
-  //       setSubmissionStatus("success");
-  //     } else {
-  //       setSubmissionStatus("error");
-  //     }
-  //   } catch (error) {
-  //     console.error("Submission error:", error);
-  //     setSubmissionStatus("error");
-  //   } finally {
-  //     setIsSubmitting(false);
-  //   }
-  // }, [formData]);
-
   const submitForm = useCallback(async () => {
     setIsSubmitting(true);
     try {

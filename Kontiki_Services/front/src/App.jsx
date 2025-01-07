@@ -62,6 +62,17 @@ function App() {
         {/* <Route path='activites' element={<Activites />} /> */}
         {/* <Route path='dev' element={<DevActivites/>} /> */}
 
+
+
+
+        {/* Route protegee */}
+        {/* <Route path='/dmin' 
+          element={
+            <ProtectedRoute>
+              <AdminPanel />
+            </ProtectedRoute> */}
+          {/* } */}
+
       </Routes>
 
       <Footer />
