@@ -36,7 +36,6 @@ function A_propos() {
   return (
     <>
 
-
       <div className='h-screen pt-20 font-sans'>
         <div className="my-8 text-center">
           <h2 className="box-border h-20 text-xl font-semibold transition-all duration-700 ease-in-out text-blue-950 md:text-4xl hover:text-5xl">
@@ -57,7 +56,7 @@ function A_propos() {
             </p>
           </motion.div>
         </div>
-
+        
         <motion.section
 
           variants={FadeUp(0.5)}
@@ -155,7 +154,6 @@ function A_propos() {
             </p>
             <img width="500" height="150" src={tefy} alt="Photo de Tefy" className='rounded-md shadow-md' />
           </motion.div>
-
         </div>
       </section>
 
@@ -283,103 +281,6 @@ function A_propos() {
           </div>
         </div>
       </motion.section>
-
-
-
-
-      <div className="flex flex-col items-center py-12 bg-gradient-to-r from-teal-400 to-blue-700">
-        {/* Chronologie */}
-        <div className="relative w-full max-w-4xl">
-          <div className="absolute inset-x-0 h-1 transform -translate-y-1/2 bg-gray-200 top-1/2"></div>
-
-          {/* Événements de la chronologie */}
-          <div className="relative flex flex-col items-center justify-between px-4 md:flex-row md:px-8">
-            {/* Événement 1 */}
-            <div
-              className="flex flex-col items-center mb-6 text-center md:mb-0"
-              onMouseEnter={() => handleMouseEnter('event1')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <div className="w-6 h-6 bg-white border-2 border-teal-500 rounded-full -top-full"></div>
-              <p className="mt-2 text-base font-semibold text-white md:text-lg">Bienvenue</p>
-              <p className="text-sm text-gray-200">01 February 2015</p>
-
-              {/* Affichage dynamique de la description */}
-              {activeEvent === 'event1' && (
-                <div className="absolute w-64 p-4 -mt-24 text-center bg-white rounded-lg shadow-md -top-20">
-                  <h3 className="font-bold text-purple-600">Bienvenue chez Kontiki</h3>
-                  <p className="mt-2 text-gray-600">
-                    Le voyage commence ici. Préparez-vous pour une aventure passionnante.
-                  </p>
-                </div>
-              )}
-            </div>
-
-            {/* Événement 2 */}
-            <div
-              className="flex flex-col items-center mb-6 text-center md:mb-0"
-              onMouseEnter={() => handleMouseEnter('event2')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <div className="w-6 h-6 bg-teal-500 border-2 border-teal-500 rounded-full"></div>
-              <p className="mt-2 text-base font-semibold text-white md:text-lg">Création de KONTIKI</p>
-              <p className="text-sm text-gray-200">19 Mars 2019</p>
-
-              {/* Affichage dynamique de la description */}
-              {activeEvent === 'event2' && (
-                <div className="absolute w-64 p-4 -mt-24 text-center bg-white rounded-lg shadow-md -top-full">
-                  <h3 className="font-bold text-purple-600">First Work!</h3>
-                  <h4 className="text-xl font-semibold text-teal-600">Be Productive!</h4>
-                  <p className="mt-2 text-gray-600">
-                    A small river named Duden flows by their place and supplies it with the necessary regalia. It is a paradise.
-                  </p>
-                </div>
-              )}
-            </div>
-
-            {/* Événement 3 */}
-            <div
-              className="flex flex-col items-center mb-6 text-center md:mb-0"
-              onMouseEnter={() => handleMouseEnter('event3')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <div className="w-6 h-6 bg-white border-2 border-teal-500 rounded-full"></div>
-              <p className="mt-2 text-base font-semibold text-white md:text-lg">Christmas</p>
-              <p className="text-sm text-gray-200">31 December 2015</p>
-
-              {/* Affichage dynamique de la description */}
-              {activeEvent === 'event3' && (
-                <div className="absolute top-0 w-64 p-4 -mt-24 text-center bg-white rounded-lg shadow-md">
-                  <h3 className="font-bold text-purple-600">Christmas!</h3>
-                  <p className="mt-2 text-gray-600">Time to celebrate with family and friends!</p>
-                </div>
-              )}
-            </div>
-
-            {/* Événement 4 */}
-            <div
-              className="flex flex-col items-center mb-6 text-center md:mb-0"
-              onMouseEnter={() => handleMouseEnter('event4')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <div className="w-6 h-6 bg-white border-2 border-teal-500 rounded-full"></div>
-              <p className="mt-2 text-base font-semibold text-white md:text-lg">First Meetup</p>
-              <p className="text-sm text-gray-200">05 February 2015</p>
-
-              {/* Affichage dynamique de la description */}
-              {activeEvent === 'event4' && (
-                <div className="absolute top-0 w-64 p-4 -mt-24 text-center bg-white rounded-lg shadow-md">
-                  <h3 className="font-bold text-purple-600">First Meetup!</h3>
-                  <p className="mt-2 text-gray-600">Meet like-minded individuals and network!</p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-
     </>
   )
 }

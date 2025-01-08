@@ -38,7 +38,7 @@ const KontikiTest = () => {
       route: "/entretienTM"
     },
     {
-      title: "Affiliète Manager",
+      title: "Affiliate Manager",
       description: "L'affilié reçoit une commission qui varie.",
       icon: "https://img.icons8.com/ios/50/manager.png",
       route: "/testAM"

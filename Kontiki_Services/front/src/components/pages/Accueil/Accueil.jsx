@@ -167,7 +167,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Reste du contenu... */}
       {/* About Section */}
       <section id="about" className="container px-4 py-16 mx-auto">
         <div className="my-20 mb-20 font-sans text-center">
@@ -276,7 +275,7 @@ const HomePage = () => {
               transition={{ duration: 0.8 }}
               className="lg:pr-8"
             >
-              <h2 className="text-4xl font-bold tracking-tight text-blue-950 sm:text-6xl">
+              <h2 className="font-sans text-4xl font-bold tracking-tight text-blue-950 sm:text-6xl">
                 Rejoignez-nous
               </h2>
               <div className="w-20 h-2 mt-4 rounded-full bg-amber-400"></div>
