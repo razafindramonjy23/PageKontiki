@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 const SolutionCard = ({ title, description, icon, industries }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition transform hover:-translate-y-2">
+    <div className="p-6 transition transform bg-white rounded-lg shadow-md hover:shadow-xl hover:-translate-y-2">
       <div className="flex items-center mb-4">
         <img 
           src={icon} 
@@ -12,14 +12,14 @@ const SolutionCard = ({ title, description, icon, industries }) => {
         />
         <h3 className="text-xl font-semibold text-blue-900">{title}</h3>
       </div>
-      <p className="text-gray-600 mb-4">{description}</p>
+      <p className="mb-4 text-gray-600">{description}</p>
       <div className="mt-4">
-        <h4 className="font-medium text-gray-800 mb-2">Secteurs d'application :</h4>
+        <h4 className="mb-2 font-medium text-gray-800">Secteurs d'application :</h4>
         <div className="flex flex-wrap gap-2">
           {industries.map((industry, index) => (
             <span 
               key={index} 
-              className="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full"
+              className="px-3 py-1 text-sm text-blue-800 bg-blue-100 rounded-full"
             >
               {industry}
             </span>
@@ -69,19 +69,19 @@ const SolutionsPage = () => {
   return (
     <div>
       
-      <div className="bg-gray-50 min-h-screen pt-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+      <div className="min-h-screen pt-24 bg-gray-50">
+        <div className="max-w-6xl px-4 mx-auto sm:px-6 lg:px-8">
+          <div className="mb-16 text-center">
+            <h1 className="mb-6 text-4xl font-bold text-gray-800 md:text-5xl">
               Nos Solutions IA sur Mesure
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="max-w-3xl mx-auto text-xl text-gray-600">
               Des solutions intelligentes adaptées à chaque secteur d'activité.
             </p>
           </div>
 
           <div className="flex justify-center mb-12">
-            <div className="bg-white rounded-full shadow-md inline-flex">
+            <div className="inline-flex bg-white rounded-full shadow-md">
               {Object.keys(solutionsTabs).map((tab) => (
                 <button
                   key={tab}
@@ -100,7 +100,7 @@ const SolutionsPage = () => {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid gap-8 md:grid-cols-2">
             {solutionsTabs[activeTab].map((solution, index) => (
               <SolutionCard
                 key={index}

@@ -219,8 +219,6 @@ const useFormSubmission = (formData) => {
   return { submitForm, isSubmitting, submissionStatus };
 };
 
-
-
 function Entretien() {
   const INITIAL_FORM_DATA = {
     technicalSkills: {

@@ -10,7 +10,7 @@ function Footer() {
                     <div className="flex flex-col items-center space-y-6 lg:items-start">
                         <Link to='/accueil' className="block">
                             <div className="text-3xl font-black">
-                                <span className="text-sky-500">KONTIKI</span>
+                                <span className="text-blue-900">KONTIKI</span>
                                 <span className="text-gray-800">SERVICE</span>
                             </div>
                         </Link>
