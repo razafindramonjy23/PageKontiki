@@ -1,75 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-
-// Composant Card pour les solutions
-const SolutionCard = ({ title, description, icon, industries }) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      whileHover={{ y: -8 }}
-      className="p-6 bg-white rounded-lg shadow-md hover:shadow-xl"
-    >
-      <div className="flex items-center mb-4">
-        <div className="w-16 h-16 mr-4 overflow-hidden rounded-full">
-          <motion.img
-            src={icon}
-            alt={title}
-            className="object-cover w-full h-full"
-            whileHover={{ scale: 1.1 }}
-            transition={{ duration: 0.3 }}
-          />
-        </div>
-        <h3 className="text-xl font-semibold text-blue-600">{title}</h3>
-      </div>
-      <p className="mb-4 leading-relaxed text-gray-600">{description}</p>
-      <div className="mt-4">
-        <h4 className="mb-2 font-medium text-gray-800">Domaines d'expertise :</h4>
-        <div className="flex flex-wrap gap-2">
-          {industries.map((industry, index) => (
-            <motion.span
-              key={index}
-              whileHover={{ scale: 1.05 }}
-              className="px-3 py-1 text-sm text-blue-800 border border-blue-100 rounded-full bg-blue-50"
-            >
-              {industry}
-            </motion.span>
-          ))}
-        </div>
-      </div>
-    </motion.div>
-  );
-};
-
-// Données des forces
-const strengths = [
-  {
-    title: "Equipe jeune, dynamique et compétente",
-    description: "Notre équipe allie fraîcheur d'esprit et expertise professionnelle",
-    image: "/api/placeholder/800/500",
-    color: "bg-blue-500"
-  },
-  {
-    title: "Large éventail de métiers intéressants",
-    description: "Des opportunités variées pour développer votre carrière",
-    image: "/api/placeholder/800/500",
-    color: "bg-yellow-500"
-  },
-  {
-    title: "Ambiance conviviale et professionnelle",
-    description: "Un environnement de travail équilibré et stimulant",
-    image: "/api/placeholder/800/500",
-    color: "bg-green-500"
-  },
-  {
-    title: "En pleine croissance",
-    description: "Une entreprise dynamique avec de nombreuses perspectives d'évolution",
-    image: "/api/placeholder/800/500",
-    color: "bg-purple-500"
-  }
-];
+import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 
 // Données des solutions
 const solutionsTabs = {
@@ -117,7 +48,77 @@ const solutionsTabs = {
   ]
 };
 
-// Composant principal
+// Données des forces
+const strengths = [
+  {
+    title: "Equipe jeune, dynamique et compétente",
+    description: "Notre équipe allie fraîcheur d'esprit et expertise professionnelle",
+    image: "/api/placeholder/800/500",
+    color: "bg-blue-500"
+  },
+  {
+    title: "Large éventail de métiers intéressants",
+    description: "Des opportunités variées pour développer votre carrière",
+    image: "/api/placeholder/800/500",
+    color: "bg-yellow-500"
+  },
+  {
+    title: "Ambiance conviviale et professionnelle",
+    description: "Un environnement de travail équilibré et stimulant",
+    image: "/api/placeholder/800/500",
+    color: "bg-green-500"
+  },
+  {
+    title: "En pleine croissance",
+    description: "Une entreprise dynamique avec de nombreuses perspectives d'évolution",
+    image: "/api/placeholder/800/500",
+    color: "bg-purple-500"
+  }
+];
+
+const SolutionCard = ({ title, description, icon, industries, index }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      whileHover={{ y: -10, transition: { duration: 0.2 } }}
+      className="p-8 transition-all duration-300 transform bg-white shadow-lg rounded-xl hover:shadow-2xl"
+    >
+      <div className="flex flex-col items-start gap-4">
+        <div className="w-16 h-16 p-3 bg-blue-100 rounded-lg">
+          <motion.img
+            src={icon}
+            alt={title}
+            className="object-cover w-full h-full"
+            whileHover={{ rotate: 360 }}
+            transition={{ duration: 0.5 }}
+          />
+        </div>
+        <h3 className="text-2xl font-bold text-blue-900">{title}</h3>
+        <p className="leading-relaxed text-gray-600">{description}</p>
+        <div className="flex flex-wrap gap-2 mt-4">
+          {industries.map((industry, idx) => (
+            <span
+              key={idx}
+              className="px-4 py-1 text-sm font-medium text-yellow-800 bg-yellow-100 rounded-full"
+            >
+              {industry}
+            </span>
+          ))}
+        </div>
+        <motion.button
+          whileHover={{ x: 10 }}
+          className="flex items-center gap-2 mt-6 font-semibold text-blue-600 group"
+        >
+          En savoir plus
+          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
+        </motion.button>
+      </div>
+    </motion.div>
+  );
+};
+
 const SolutionsPage = () => {
   const [activeTab, setActiveTab] = useState('generation');
   const [current, setCurrent] = useState(0);
@@ -158,57 +159,64 @@ const SolutionsPage = () => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-blue-50 to-white">
-      {/* Section Activités Principales */}
-      <section className="pt-24">
-        <div className="max-w-6xl px-4 mx-auto sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-b from-blue-200 to-white">
+      {/* Hero Section */}
+      <section className="px-4 pt-32 pb-20">
+        <div className="max-w-6xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-16 text-center"
+            transition={{ duration: 0.6 }}
           >
-            <h1 className="mb-6 text-4xl font-bold text-blue-900 md:text-5xl">
-              Nos activités principales
+            <h1 className="mb-6 text-5xl font-bold text-blue-900 md:text-6xl">
+              Nos Solutions
             </h1>
-            <p className="max-w-3xl mx-auto text-xl text-gray-600">
-              Des solutions professionnelles pour développer votre business
+            <p className="max-w-2xl mx-auto text-xl text-gray-600">
+              Des solutions innovantes pour développer votre business et maximiser votre potentiel
             </p>
           </motion.div>
+        </div>
+      </section>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex justify-center mb-12"
-          >
-            <div className="inline-flex bg-white rounded-full shadow-md">
+      {/* Solutions Section */}
+      <section className="px-4 py-20">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex justify-center mb-16">
+            <div className="inline-flex p-2 bg-blue-100 rounded-full">
               {Object.entries({
                 generation: 'Génération de Leads',
                 emailing: 'Campagnes Emailing',
                 qualification: 'Qualification Prospects'
               }).map(([key, label]) => (
-                <button
+                <motion.button
                   key={key}
                   onClick={() => setActiveTab(key)}
-                  className={`px-6 py-3 rounded-full transition duration-300 ${activeTab === key
-                      ? 'bg-blue-900 text-white'
-                      : 'text-gray-600 hover:bg-blue-50'
-                    }`}
+                  className={`px-8 py-3 rounded-full font-medium transition-all ${
+                    activeTab === key
+                      ? 'bg-blue-900 text-white shadow-lg'
+                      : 'text-blue-900 hover:bg-blue-50'
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   {label}
-                </button>
+                </motion.button>
               ))}
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div layout className="grid gap-8 md:grid-cols-2">
+          <motion.div
+            layout
+            className="grid gap-8 md:grid-cols-2"
+          >
             {solutionsTabs[activeTab].map((solution, index) => (
-              <SolutionCard key={index} {...solution} />
+              <SolutionCard key={index} {...solution} index={index} />
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* Section Nos Forces */}
+      {/* Strengths Section - Style Original */}
       <section className="py-20">
         <div className="max-w-6xl px-4 mx-auto">
           <motion.div
@@ -216,9 +224,9 @@ const SolutionsPage = () => {
             animate={{ opacity: 1, y: 0 }}
             className="mb-16 text-center"
           >
-            <h1 className="mb-6 text-4xl font-bold text-blue-900 md:text-5xl">
+            <h2 className="mb-6 text-4xl font-bold text-blue-900">
               Nos forces
-            </h1>
+            </h2>
             <p className="max-w-3xl mx-auto text-xl text-gray-600">
               Des solutions professionnelles pour développer votre business
             </p>
@@ -240,12 +248,13 @@ const SolutionsPage = () => {
                 className="absolute w-full h-full"
               >
                 <div className="relative flex items-center w-full h-full">
-                  <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent">
+                  <div className="absolute inset-0">
                     <img
                       src={strengths[current].image}
                       alt={strengths[current].title}
                       className="object-cover w-full h-full"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent" />
                   </div>
                   <div className="relative z-10 w-1/2 p-12 text-white">
                     <h3 className="mb-4 text-3xl font-bold">
@@ -280,8 +289,9 @@ const SolutionsPage = () => {
                     setDirection(index > current ? 1 : -1);
                     setCurrent(index);
                   }}
-                  className={`w-3 h-3 rounded-full transition-all ${index === current ? 'bg-amber-400 w-6' : 'bg-white/50 hover:bg-white'
-                    }`}
+                  className={`w-3 h-3 rounded-full transition-all ${
+                    index === current ? 'bg-yellow-400 w-6' : 'bg-white/50 hover:bg-white'
+                  }`}
                 />
               ))}
             </div>

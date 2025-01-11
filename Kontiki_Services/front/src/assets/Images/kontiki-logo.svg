@@ -1,0 +1,24 @@
+<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="150" cy="150" r="140" fill="#f0f9ff"/>
+  
+  <!-- Stylized K -->
+  <path d="M 100 80 L 100 220 M 100 150 L 160 80 M 100 150 L 160 220" 
+        stroke="#1e40af" 
+        stroke-width="20" 
+        fill="none"
+        stroke-linecap="round"/>
+  
+  <!-- Wave elements representing digital services -->
+  <path d="M 170 150 Q 190 150 210 140 Q 230 130 250 150"
+        stroke="#fbbf24"
+        stroke-width="15"
+        fill="none"
+        stroke-linecap="round"/>
+  
+  <path d="M 170 170 Q 190 170 210 160 Q 230 150 250 170"
+        stroke="#1e40af"
+        stroke-width="15"
+        fill="none"
+        stroke-linecap="round"/>
+</svg>

@@ -1,1397 +1,318 @@
-import React, { useState, useCallback } from "react";
-import { ChevronRight, ChevronLeft, CheckCircle2 } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 
-// Custom Hook for Multi-Step Form Management
-const useMultiStepForm = (initialData, totalSteps) => {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState(initialData);
-  const [completedSteps, setCompletedSteps] = useState([]);
 
-  const nextStep = useCallback(() => {
-    if (currentStep < totalSteps) {
-      // Mark current step as completed
-      if (!completedSteps.includes(currentStep)) {
-        setCompletedSteps((prev) => [...prev, currentStep]);
-      }
-      setCurrentStep((prev) => prev + 1);
-    }
-  }, [currentStep, totalSteps, completedSteps]);
+const InputField = ({ label, type, name, onChange }) => (
+  <div>
+    <label>{label}</label>
+    <br />
+    <input type={type} name={name} onChange={onChange} />
+  </div>
+);
 
-  const prevStep = useCallback(() => {
-    if (currentStep > 1) {
-      setCurrentStep((prev) => prev - 1);
-    }
-  }, [currentStep]);
+const TextareaField = ({ label, name, onChange }) => (
+  <div>
+    <label>{label}</label>
+    <br />
+    <textarea name={name} onChange={onChange}></textarea>
+  </div>
+);
 
-  const updateFormData = useCallback((section, field, value) => {
-    setFormData((prev) => ({
-      ...prev,
-      [section]: {
-        ...prev[section],
-        [field]: value,
+const FormSection = ({ id, title, icon, fields, isActive, onChange }) => (
+  <div className={id} style={{ display: isActive ? "block" : "none" }}>
+    <div className="bg-svg">
+      <img width="96" height="96" src={icon} alt={title} />
+    </div>
+    <h2>{title}</h2>
+    {fields.map((field, index) => (
+      field.type === "textarea" ? (
+        <TextareaField key={index} label={field.label} required name={`question_${field.id}`} onChange={onChange} />
+      ) : (
+        <InputField key={index} label={field.label} type={field.type} required name={`question_${field.id}`} onChange={onChange} />
+      )
+    ))}
+  </div>
+);
+
+const ProgressSteps = ({ steps, activeStep }) => (
+  <div className="progress">
+    <ul className="progress-steps">
+      {steps.map((step, index) => (
+        <li key={index} className={`step ${index === activeStep ? "active" : ""}`}>
+          <span>{index + 1}</span>
+          <p>{step.title} </p>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
+const Presentation = () => {
+  const [activeStep, setActiveStep] = useState(0);
+  const [formData, setFormData] = useState({});
+  const navigate = useNavigate();
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData(prevData => ({ ...prevData, [name]: value }));
+  };
+
+  const submitResponses = async (data) => {
+    const response = await fetch('http://localhost:8000/api/submit-responses/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    }));
-  }, []);
-
-  const isStepValid = useCallback(
-    (step) => {
-      // Fonction utilitaire pour vérifier si tous les champs sont valides
-      const areFieldsValid = (fields) =>
-        fields.every((field) => field?.trim?.() !== "");
-
-      switch (step) {
-        case 1:
-          return (
-            formData.technicalSkills?.languages?.length > 0 &&
-            formData.technicalSkills?.selectedLanguageLevel?.trim() !== ""
-          );
-
-        case 2:
-          return areFieldsValid([
-            formData.InformationPersonnel?.nom_prenom,
-            formData.InformationPersonnel?.age,
-            formData.InformationPersonnel?.situation_matrimoniale,
-            formData.InformationPersonnel?.adresse,
-            formData.InformationPersonnel?.email,
-            formData.InformationPersonnel?.telephone,
-          ]);
-
-        case 3:
-          return areFieldsValid([
-            formData.SavoirFormation?.poste_envisage,
-            formData.SavoirFormation?.formation_renseignements,
-            formData.SavoirFormation?.dernier_travail,
-            formData.SavoirFormation?.satisfaction_carriere,
-          ]);
-
-        case 4:
-          return areFieldsValid([
-            formData.Ponctualite?.retard_dernier,
-            formData.Ponctualite?.definition_retard,
-          ]);
-
-        case 5:
-          return areFieldsValid([
-            formData.Tenacite?.difficulte_professionnelle,
-            formData.Tenacite?.activites_difficiles,
-            formData.Tenacite?.critique_travail,
-            formData.Tenacite?.conflit_interets,
-          ]);
-
-        case 6:
-          return areFieldsValid([
-            formData.Integration?.type_personnes_preferees,
-            formData.Integration?.reaction_remarque_negative,
-            formData.Integration?.depasse_par_situation,
-          ]);
-
-        case 7:
-          return areFieldsValid([
-            formData.SensDuService?.type_personnes_preferees,
-            formData.SensDuService?.tache_non_attribuee,
-            formData.SensDuService?.esprit_initiative,
-          ]);
-
-        case 8:
-          return areFieldsValid([
-            formData.Autonomie?.travail_seul,
-            formData.Autonomie?.demande_travail_non_prevus,
-          ]);
-
-        case 9:
-          return areFieldsValid([formData.Organisation?.organisation_journee]);
-
-        case 10:
-          return areFieldsValid([
-            formData.Satisfaction?.satisfactions_postes,
-            formData.Satisfaction?.poste_ideal,
-            formData.Satisfaction?.choix_entreprises,
-            formData.Satisfaction?.bien_traite,
-            formData.Satisfaction?.travail_soir_weekend,
-            formData.Satisfaction?.competence_apportee,
-          ]);
-
-        case 11:
-          return areFieldsValid([
-            formData.TestTechniquePython?.execution_python,
-            formData.TestTechniquePython?.specificateurs_acces,
-            formData.TestTechniquePython?.copie_superficielle_profonde,
-            formData.TestTechniquePython?.utilisation_decorateurs,
-            formData.TestTechniquePython?.gestion_exceptions,
-            formData.TestTechniquePython?.capture_exception,
-            formData.TestTechniquePython?.threading_vs_multiprocessing,
-          ]);
-
-        case 12:
-          return areFieldsValid([
-            formData.TestTechniqueJavaScript?.local_state_vs_global_state,
-            formData.TestTechniqueJavaScript?.userlist_component,
-            formData.TestTechniqueJavaScript?.app_component,
-            formData.TestTechniqueJavaScript?.userform_component,
-          ]);
-
-        case 13:
-          return areFieldsValid([
-            formData.TestTechniqueFullstack?.route_serveur,
-            formData.TestTechniqueFullstack?.optimisation_requetes_bdd,
-            formData.TestTechniqueFullstack?.deploiement_fullstack,
-          ]);
-
-        default:
-          return false;
-      }
-    },
-    [formData]
-  );
-
-  return {
-    currentStep,
-    formData,
-    updateFormData,
-    nextStep,
-    prevStep,
-    completedSteps,
-    isStepValid,
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+      throw new Error('Erreur lors de la soumission des réponses.');
+    }
+    return response.json();
   };
-};
 
-// Hook for Form Submission
-const useFormSubmission = (formData) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submissionStatus, setSubmissionStatus] = useState(null);
+  useEffect(() => {
 
-  const submitForm = useCallback(async () => {
-    setIsSubmitting(true);
-    try {
-      const response = await fetch("/api/submit-interview", {
-        method: "POST",
+    function submitResponses(){
+
+      fetch('http://localhost:8000/api/submit-responses/' ,{
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
-      });
+        body: JSON.stringify(data),
+      })
+      .then(respo => respo.json())
+      .then(data => setFormData(data))
+      .catch(err => console.error("", err)
+      )
+    }
 
-      if (response.ok) {
-        setSubmissionStatus("success");
-      } else {
-        setSubmissionStatus("error");
-      }
+  });
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      await submitResponses(formData);
+      alert('Réponses soumises avec succès !');
     } catch (error) {
-      console.error("Submission error:", error);
-      setSubmissionStatus("error");
-    } finally {
-      setIsSubmitting(false);
-    }
-  }, [formData]);
-
-  return { submitForm, isSubmitting, submissionStatus };
-};
-function EntretientTM() {
-  const INITIAL_FORM_DATA = {
-    technicalSkills: {
-      languages: [],
-      frameworks: [],
-      selectedLanguageLevel: "",
-    },
-    InformationPersonnel: {
-      nom_prenom: "",
-      age: "",
-      situation_matrimoniale: "",
-      adresse: "",
-      email: "",
-      telephone: "",
-    },
-    SavoirFormation: {
-      poste_envisage: "",
-      formation_renseignements: "",
-      dernier_travail: "",
-      satisfaction_carriere: "",
-    },
-    Ponctualite: {
-      retard_dernier: "",
-      definition_retard: "",
-    },
-    Tenacite: {
-      difficulte_professionnelle: "",
-      activites_difficiles: "",
-      critique_travail: "",
-      conflit_interets: "",
-    },
-    Integration: {
-      type_personnes_preferees: "",
-      reaction_remarque_negative: "",
-      depasse_par_situation: "",
-    },
-    SensDuService: {
-      reaction_collegue_probleme: "",
-      tache_non_attribuee: "",
-      esprit_initiative: "",
-    },
-    Autonomie: {
-      travail_seul: "",
-      demande_travail_non_prevus: "",
-    },
-
-    Organisation: {
-      organisation_journee: "",
-    },
-
-    Satisfaction: {
-      satisfactions_postes: "",
-      poste_ideal: "",
-      choix_entreprises: "",
-      bien_traite: "",
-      travail_soir_weekend: "",
-      competence_apportee: "",
-    },
-
-    TestTechniquePython: {
-      execution_python: "",
-      specificateurs_acces: "",
-      copie_superficielle_profonde: "",
-      utilisation_decorateurs: "",
-      gestion_exceptions: "",
-      capture_exception: "",
-      threading_vs_multiprocessing: "",
-    },
-
-    TestTechniqueJavaScript: {
-      local_state_vs_global_state: "",
-      userlist_component: "",
-      app_component: "",
-      userform_component: "",
-    },
-
-    TestTechniqueFullstack: {
-      route_serveur: "",
-      optimisation_requetes_bdd: "",
-      deploiement_fullstack: "",
-    },
-  };
-
-  const {
-    currentStep,
-    formData,
-    updateFormData,
-    nextStep,
-    prevStep,
-    completedSteps,
-    isStepValid,
-  } = useMultiStepForm(INITIAL_FORM_DATA, 13);
-
-  const { submitForm, isSubmitting, submissionStatus } =
-    useFormSubmission(formData);
-
-  const renderStepContent = () => {
-    switch (currentStep) {
-      case 1:
-        return (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-blue-900">
-              Compétences Techniques
-            </h2>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Langages de Programmation
-              </label>
-              <div className="flex flex-wrap gap-2 mt-2">
-                {[
-                  "JavaScript",
-                  "Python",
-                  "Java",
-                  "C#",
-                  "Ruby",
-                  "Go",
-                  "Rust",
-                ].map((lang) => (
-                  <label key={lang} className="inline-flex items-center">
-                    <input
-                      type="checkbox"
-                      className="form-checkbox"
-                      checked={formData.technicalSkills.languages.includes(
-                        lang
-                      )}
-                      onChange={(e) => {
-                        const updatedLangs = e.target.checked
-                          ? [...formData.technicalSkills.languages, lang]
-                          : formData.technicalSkills.languages.filter(
-                              (l) => l !== lang
-                            );
-                        updateFormData(
-                          "technicalSkills",
-                          "languages",
-                          updatedLangs
-                        );
-                      }}
-                    />
-                    <span className="ml-2">{lang}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Niveau de Maîtrise
-              </label>
-              <select
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                value={formData.technicalSkills.selectedLanguageLevel}
-                onChange={(e) =>
-                  updateFormData(
-                    "technicalSkills",
-                    "selectedLanguageLevel",
-                    e.target.value
-                  )
-                }
-              >
-                <option value="">Sélectionner un niveau</option>
-                <option value="beginner">Débutant</option>
-                <option value="intermediate">Intermédiaire</option>
-                <option value="advanced">Avancé</option>
-                <option value="expert">Expert</option>
-              </select>
-            </div>
-          </div>
-        );
-
-      case 2:
-        return (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-blue-900">
-              Informations Personnelles
-            </h2>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Nom et Prénom(s)
-              </label>
-              <input
-                type="text"
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                placeholder="Votre nom complet"
-                value={formData.InformationPersonnel.nom_prenom || ""}
-                onChange={(e) =>
-                  updateFormData(
-                    "InformationPersonnel",
-                    "nom_prenom",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Âge
-              </label>
-              <input
-                type="number"
-                min="0"
-                max="120"
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                placeholder="Votre âge"
-                value={formData.InformationPersonnel.age || ""}
-                onChange={(e) =>
-                  updateFormData("InformationPersonnel", "age", e.target.value)
-                }
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Situation Matrimoniale
-              </label>
-              <input
-                type="text"
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                placeholder="Votre situation matrimoniale"
-                value={
-                  formData.InformationPersonnel.situation_matrimoniale || ""
-                }
-                onChange={(e) =>
-                  updateFormData(
-                    "InformationPersonnel",
-                    "situation_matrimoniale",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Adresse
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Votre adresse complète"
-                value={formData.InformationPersonnel.adresse || ""}
-                onChange={(e) =>
-                  updateFormData(
-                    "InformationPersonnel",
-                    "adresse",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Email
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Votre adresse complète"
-                value={formData.InformationPersonnel.email || ""}
-                onChange={(e) =>
-                  updateFormData(
-                    "InformationPersonnel",
-                    "email",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Téléphone
-              </label>
-              <input
-                type="tel"
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                placeholder="Votre numéro de téléphone"
-                value={formData.InformationPersonnel.telephone || ""}
-                onChange={(e) =>
-                  updateFormData(
-                    "InformationPersonnel",
-                    "telephone",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-          </div>
-        );
-
-      case 3:
-        return (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-blue-600">
-              Savoir et Formation
-            </h2>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Poste Envisagé
-              </label>
-              <input
-                type="text"
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                placeholder="Poste envisagée chez KONTIKI et qu'est-ce qui vous attire, dans le poste proposé?"
-                value={formData.SavoirFormation.poste_envisage || ""}
-                onChange={(e) =>
-                  updateFormData(
-                    "SavoirFormation",
-                    "poste_envisage",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Formation et Renseignements
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Avez-vous suivi des formations ou vous êtes vous renseignés sur le poste si oui, racontez nous"
-                value={formData.SavoirFormation.formation_renseignements || ""}
-                onChange={(e) =>
-                  updateFormData(
-                    "SavoirFormation",
-                    "formation_renseignements",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Dernier Travail
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Quel est le dernier travai que vous avez occupé? Combien de temps? Et la raison pour laquelle vous avez quitté votre dernier emploi."
-                value={formData.SavoirFormation.dernier_travail || ""}
-                onChange={(e) =>
-                  updateFormData(
-                    "SavoirFormation",
-                    "dernier_travail",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Satisfaction de Carrière
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Etes-vous aujourd'hui satisfait de votre carrière?"
-                value={formData.SavoirFormation.satisfaction_carriere || ""}
-                onChange={(e) =>
-                  updateFormData(
-                    "SavoirFormation",
-                    "satisfaction_carriere",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-          </div>
-        );
-
-      case 4:
-        return (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-blue-600">Ponctualite</h2>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Retard
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="La dernière fois que vous êtes arrivé en retard, comment avez-vous géré la sitation?"
-                value={formData.Ponctualite.retard_dernier}
-                onChange={(e) =>
-                  updateFormData(
-                    "Ponctualite",
-                    "retard_dernier",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Donnez nous votre definition du retard
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Selon vous, à partir de combien de temps êtes-vous en retard?"
-                value={formData.Ponctualite.definition_retard}
-                onChange={(e) =>
-                  updateFormData(
-                    "Ponctualite",
-                    "definition_retard",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-          </div>
-        );
-
-      case 5:
-        return (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-blue-600">Tenacite</h2>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Difficulté
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Racontez-nous la dernière fois où vous avez été confroné à une difficulté en situation professionnelle. Qu'avez-vous fait? Comment avez-vous réagi?"
-                value={formData.Tenacite.difficulte_professionnelle}
-                onChange={(e) =>
-                  updateFormData(
-                    "Tenacite",
-                    "difficulte_professionnelle",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Activités difficiles
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Dans vos expériences professionnelle, quelles ont été les activités les plus difficiles à réaliser pour vous?"
-                value={formData.Tenacite.activites_difficiles}
-                onChange={(e) =>
-                  updateFormData(
-                    "Tenacite",
-                    "activites_difficiles",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Critiques
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Dans vos expériences professionnelle, quelles ont été les activités les plus difficiles à réaliser pour vous?"
-                value={formData.Tenacite.critique_travail}
-                onChange={(e) =>
-                  updateFormData("Tenacite", "critique_travail", e.target.value)
-                }
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Confit d'intérêts
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Dans vos expériences professionnelle, quelles ont été les activités les plus difficiles à réaliser pour vous?"
-                value={formData.Tenacite.conflit_interets}
-                onChange={(e) =>
-                  updateFormData("Tenacite", "conflit_interets", e.target.value)
-                }
-              />
-            </div>
-          </div>
-        );
-
-      case 6:
-        return (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-blue-600">Integration</h2>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Choix équipe
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Avec quels types de personnes aimez-vous le mieux travailler? Pour quel raisons?"
-                value={formData.Integration.type_personnes_preferees}
-                onChange={(e) =>
-                  updateFormData(
-                    "Integration",
-                    "type_personnes_preferees",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Remarque négative
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Un collègue vous fait une remarque négative sur la qualité de votre travail. Comment réagissez-vous?"
-                value={formData.Integration.reaction_remarque_negative}
-                onChange={(e) =>
-                  updateFormData(
-                    "Integration",
-                    "reaction_remarque_negative",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Complications
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Avez-vous déjà été dépassé par la situation? Donnez-moi un exemple."
-                value={formData.Integration.depasse_par_situation}
-                onChange={(e) =>
-                  updateFormData(
-                    "Integration",
-                    "depasse_par_situation",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-          </div>
-        );
-
-      case 7:
-        return (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-blue-600">
-              Sens du sérvice
-            </h2>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Aider les autres
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Vous êtes salarié de notre société, affecté au département DEVELOPPEUR. Ce matin vous êtes occupé dans une tâche urgente et importante. L'un de vos collègues va vers vous et se plaint vivement auprès de vous, car il est en retard sur son travail parce que son ordi a des soucis (la connexion internet ne marche pas). Quelle est votre réaction?"
-                value={formData.SensDuService.reaction_collegue_probleme}
-                onChange={(e) =>
-                  updateFormData(
-                    "SensDuService",
-                    "reaction_collegue_probleme",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Agir
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Vous remarquez quil y a une tâche qui est pas faite et pourtant cette tâche ne fait pas partie de votre fiche de poste. Que faites-vous?"
-                value={formData.SensDuService.tache_non_attribuee}
-                onChange={(e) =>
-                  updateFormData(
-                    "SensDuService",
-                    "tache_non_attribuee",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Initiative
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Avez-vous l'esprit d'initiative? Prouvez-le à l'aIde d'exemples."
-                value={formData.SensDuService.esprit_initiative}
-                onChange={(e) =>
-                  updateFormData(
-                    "SensDuService",
-                    "esprit_initiative",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-          </div>
-        );
-
-      case 8:
-        return (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-blue-600">Autonomie</h2>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Travailler seul
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Avez-vous déjà travaillé seul? Qu'est-ce que vous avez trouvé difficile?"
-                value={formData.Autonomie.reaction_collegue_probleme}
-                onChange={(e) =>
-                  updateFormData("Autonomie", "travail_seul", e.target.value)
-                }
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Heure suplémentaire
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Le client vous demande un travail non prévu sur votre fiche de poste? Que faites-vous?"
-                value={formData.Autonomie.demande_travail_non_prevus}
-                onChange={(e) =>
-                  updateFormData(
-                    "Autonomie",
-                    "demande_travail_non_prevus",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-          </div>
-        );
-
-      case 9:
-        return (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-blue-600">Organisation</h2>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Comment vous organisez-vous?
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Vous arrivez au bureau. Que faites-vous en premier? Comment vous organisez-vous?"
-                value={formData.Organisation.organisation_journee}
-                onChange={(e) =>
-                  updateFormData(
-                    "Organisation",
-                    "organisation_journee",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-          </div>
-        );
-
-      case 10:
-        return (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-blue-600">Satisfaction</h2>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Vos satisfactions ancien poste
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Quelles ont été vos satisfactions dans les postes que vous avez occupés?"
-                value={formData.Satisfaction.satisfactions_postes}
-                onChange={(e) =>
-                  updateFormData(
-                    "Satisfaction",
-                    "satisfactions_postes",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Poste idéal
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Quel serait le poste Idéal pour vous?"
-                value={formData.Satisfaction.poste_ideal}
-                onChange={(e) =>
-                  updateFormData("Satisfaction", "poste_ideal", e.target.value)
-                }
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Choix entreprise
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Si on vous propose le même salaire et le même nombre d'heures, entre deux entreprises, laquelle choisissez-vous?"
-                value={formData.Satisfaction.choix_entreprises}
-                onChange={(e) =>
-                  updateFormData(
-                    "Satisfaction",
-                    "choix_entreprises",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Traitement
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Quand avez-vous senti dans vos précédents postes que vous avez été bien traité?"
-                value={formData.Satisfaction.bien_traite}
-                onChange={(e) =>
-                  updateFormData("Satisfaction", "bien_traite", e.target.value)
-                }
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Travailler le weekend
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Est-ce un problème si l'on vous demande de travailler le soir et/ou le week-end?"
-                value={formData.Satisfaction.travail_soir_weekend}
-                onChange={(e) =>
-                  updateFormData(
-                    "Satisfaction",
-                    "travail_soir_weekend",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Apport pour l'entreprise
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Quelle compétence pouvez-vous apporter à cette entreprise?"
-                value={formData.Satisfaction.competence_apportee}
-                onChange={(e) =>
-                  updateFormData(
-                    "Satisfaction",
-                    "competence_apportee",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-          </div>
-        );
-
-      case 11:
-        return (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-blue-600">
-              Teste Technique Python
-            </h2>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Execution python
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Expliquez brièvement le processus d'exécution d'un fichier Python"
-                value={formData.TestTechniquePython.execution_python}
-                onChange={(e) =>
-                  updateFormData(
-                    "TestTechniquePython",
-                    "execution_python",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                specificateurs d'accès
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Nous savons que Python est un langage orienté objet, mais a-t-il des spécificateurs d'accès ?"
-                value={formData.TestTechniquePython.specificateurs_acces}
-                onChange={(e) =>
-                  updateFormData(
-                    "TestTechniquePython",
-                    "specificateurs_acces",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                copie-superficielle-profonde
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Quand devez-vous utiliser la copie superficielle au lieu de la copie profonde, et vice versa ?"
-                value={
-                  formData.TestTechniquePython.copie_superficielle_profonde
-                }
-                onChange={(e) =>
-                  updateFormData(
-                    "TestTechniquePython",
-                    "copie_superficielle_profonde",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Utilisation de decorateurs
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Expliquez l'utilisation de décorateurs en Python. Donnez un exemple pratique de situation où vous utiliseriez un décorateur."
-                value={formData.TestTechniquePython.utilisation_decorateurs}
-                onChange={(e) =>
-                  updateFormData(
-                    "TestTechniquePython",
-                    "utilisation_decorateurs",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Gérer les exceptions
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Comment gérer les exceptions de manière robuste en Python? Donnez des exemples de situations où les exceptions seraient appropriées"
-                value={formData.TestTechniquePython.gestion_exceptions}
-                onChange={(e) =>
-                  updateFormData(
-                    "TestTechniquePython",
-                    "gestion_exceptions",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Capturer les exceptions
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Pouvez-vous expliquer comment une exception peut être attrapée dans un programme Python ?"
-                value={formData.TestTechniquePython.capture_exception}
-                onChange={(e) =>
-                  updateFormData(
-                    "TestTechniquePython",
-                    "capture_exception",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                threading_vs_multiprocessing
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Décrivez les différences entre le threading et le multiprocessing en Python. Quand choisiriez-vous l'un par rapport à l'autre?"
-                value={
-                  formData.TestTechniquePython.threading_vs_multiprocessing
-                }
-                onChange={(e) =>
-                  updateFormData(
-                    "TestTechniquePython",
-                    "threading_vs_multiprocessing",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-          </div>
-        );
-
-      case 12:
-        return (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-blue-600">
-              Test téchnique JavaScript
-            </h2>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                local_state_vs_global_state
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Comparez les avantages et les inconvénients des états locaux (local state) et des états gérés globalement (global state) dans une application Vue.js ou React.js."
-                value={
-                  formData.TestTechniqueJavaScript.local_state_vs_global_state
-                }
-                onChange={(e) =>
-                  updateFormData(
-                    "TestTechniqueJavaScript",
-                    "local_state_vs_global_state",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                userlist_component
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Créez un composant fonctionnel nommé UserList qui reçoit une liste d'utilisateurs en tant que prop et affiche leurs noms dans une liste. Assurez-vous que le composant met à jour correctement le state avec la liste d'utilisateurs. (* sur vscode)"
-                value={formData.TestTechniqueJavaScript.userlist_component}
-                onChange={(e) =>
-                  updateFormData(
-                    "TestTechniqueJavaScript",
-                    "userlist_component",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                app_component
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Créez un composant parent nommé App qui contient le state avec une liste initiale d'utilisateurs. Ce composant doit rendre le composant UserList créé précédemment et un nouveau composant UserForm qui permet d'ajouter un nouvel utilisateur à la liste. (* sur vscode)"
-                value={formData.TestTechniqueJavaScript.app_component}
-                onChange={(e) =>
-                  updateFormData(
-                    "TestTechniqueJavaScript",
-                    "app_component",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                userform_component
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Implémentez le composant UserForm avec un formulaire simple qui permet à l'utilisateur de saisir un nom. Lorsque le formulaire est soumis, ajoutez un nouvel utilisateur à la liste dans le state du composant parent (App). Assurez-vous que le state est mis à jour correctement. (* sur vscode)"
-                value={formData.TestTechniqueJavaScript.userform_component}
-                onChange={(e) =>
-                  updateFormData(
-                    "TestTechniqueJavaScript",
-                    "userform_component",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-          </div>
-        );
-
-      case 13:
-        return (
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-blue-600">
-              Test téchnique fullstack
-            </h2>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Comment vous organisez-vous?
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Mettez en place une route côté serveur (Django, Flask) qui renvoie une liste d'utilisateurs au format JSON. La liste d'utilisateurs peut être stockée dans un fichier json. (* sur vscode)"
-                value={formData.TestTechniqueFullstack.route_serveur}
-                onChange={(e) =>
-                  updateFormData(
-                    "TestTechniqueFullstack",
-                    "route_serveur",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Requêtes vers une base de données
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Comment optimisez-vous les requêtes vers une base de données pour améliorer les performances d'une application? Parlez de l'indexation, du caching, ou d'autres stratégies que vous avez déjà mise en œuvre dans vos expériences."
-                value={
-                  formData.TestTechniqueFullstack.optimisation_requetes_bdd
-                }
-                onChange={(e) =>
-                  updateFormData(
-                    "TestTechniqueFullstack",
-                    "optimisation_requetes_bdd",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Processus de déploiement
-              </label>
-              <textarea
-                className="block w-full mt-2 border-gray-300 rounded-md shadow-sm"
-                rows="3"
-                placeholder="Décrivez le processus de déploiement d'une application fullstack, en mettant l'accent sur les bonnes pratiques. Parlez de l'utilisation d'outils tels que Docker, Kubernetes, ou autres, selon votre expérience."
-                value={formData.TestTechniqueFullstack.deploiement_fullstack}
-                onChange={(e) =>
-                  updateFormData(
-                    "TestTechniqueFullstack",
-                    "deploiement_fullstack",
-                    e.target.value
-                  )
-                }
-              />
-            </div>
-          </div>
-        );
-
-      default:
-        return null;
+      console.error('Erreur lors de la soumission :', error);
+      alert('Erreur lors de la soumission.');
     }
   };
 
-  const handleSubmit = () => {
-    if (isStepValid(currentStep)) {
-      submitForm();
-    } else {
-      alert("Veuillez remplir tous les champs obligatoires");
+  const btnSuivant = () => {
+    if (activeStep < steps.length - 1) {
+      setActiveStep(activeStep + 1);
     }
   };
+
+  const btnPrecedent = () => {
+    if (activeStep > 0) {
+      setActiveStep(activeStep - 1);
+    }
+  };
+
+  const steps = [
+    {
+      id: "form1",
+      title: "Information personnel",
+      icon: "https://img.icons8.com/3d-fluency/94/user-male-circle.png",
+      fields: [
+        { label: "Nom", type: "text" },
+        { label: "Prenom", type: "text" },
+        { label: "Age", type: "text" },
+        { label: "Situation matrimoniale", type: "text" },
+        { label: "Adresse actuelle", type: "text" },
+        { label: "Numéro de téléphone", type: "text" },
+        { label: "Adresse e-mail", type: "email" }
+      ]
+    },
+    {
+      id: "form2",
+      title: "SAVOIR-FORMATION",
+      icon: "https://img.icons8.com/color/96/reading.png",
+      fields: [
+        { label: "Poste envisagée chez KONTIKI et qu'est-ce qui vous attire, dans le poste proposé?", type: "textarea" },
+        { label: "Avez-vous suivi des formations ou vous êtes vous renseignés sur le poste si oui, racontez nous", type: "textarea" },
+        { label: "Quel est le dernier travai que vous avez occupé? Combien de temps? Et la raison pour laquelle vous avez quitté votre dernier emploi.", type: "textarea" },
+        { label: "Etes-vous aujourd'hui satisfait de votre carrière?", type: "textarea" },
+        { label: "Pouvez-vous nous donner quelques exemples de réalisations?", type: "textarea" }
+      ]
+    },
+    {
+      id: "form3",
+      title: "PONCTUALITE",
+      icon: "https://img.icons8.com/external-vectorslab-flat-vectorslab/53/external-Punctuality-business-presentations-and-meetings-vectorslab-flat-vectorslab.png",
+      fields: [
+        { label: "La dernière fois que vous êtes arrivé en retard, comment avez-vous géré la sitation?", type: "textarea" },
+        { label: "Selon vous, à partir de combien de temps êtes-vous en retard?", type: "textarea" }
+      ]
+    },
+    {
+      id: "form4",
+      title: "TENACITE",
+      icon: "https://img.icons8.com/color/96/courage.png",
+      fields: [
+        { label: "Racontez-nous la dernière fois où vous avez été confroné à une difficulté en situation professionnelle. Qu'avez-vous fait? Comment avez-vous réagi?", type: "textarea" },
+        { label: "Dans vos expériences professionnelle, quelles ont été les activités les plus difficiles à réaliser pour vous?", type: "textarea" },
+        { label: "Donnez-moi un exemple de situation où votre travail a été critiqué", type: "textarea" },
+        { label: "Donnez-moi un exemple de situation professionnelle où vous avez dû faire face à un conflit d'intérêts.", type: "textarea" }
+      ]
+    },
+    {
+      id: "form5",
+      title: "INTEGRATION",
+      icon: "https://img.icons8.com/arcade/64/onboarding.png",
+      fields: [
+        { label: "Avec quels types de personnes aimez-vous le mieux travailler? Pour quel raisons?", type: "textarea" },
+        { label: "Un collègue vous fait une remarque négative sur la qualité de votre travail. Comment réagissez-vous?", type: "textarea" },
+        { label: "Avez-vous déjà été dépassé par la situation? Donnez-moi un exemple.", type: "textarea" }
+      ]
+    },
+    {
+      id: "form6",
+      title: "SENS DU SERVICE",
+      icon: "https://img.icons8.com/fluency/96/service.png",
+      fields: [
+        { label: "Vous êtes salarié de notre société, affecté au département DEVELOPPEUR. Ce matin vous êtes occupé dans une tâche urgente et importante. L'un de vos collègues va vers vous et se plaint vivement auprès de vous, car il est en retard sur son travail parce que son ordi a des soucis (la connexion internet ne marche pas). Quelle est votre réaction?", type: "textarea" },
+        { label: "Vous remarquez quil y a une tâche qui est pas faite et pourtant cette tâche ne fait pas partie de votre fiche de poste. Que faites-vous?", type: "textarea" },
+        { label: "Avez-vous l'esprit d'initiative? Prouvez-le à l'aIde d'exemples.", type: "textarea" }
+      ]
+    },
+    {
+      id: "form7",
+      title: "AUTONOMIE",
+      icon: "https://img.icons8.com/external-flaticons-flat-flat-icons/64/external-autonomy-gig-economy-flaticons-flat-flat-icons.png",
+      fields: [
+        { label: "Avez-vous déjà travaillé seul? Qu'est-ce que vous avez trouvé difficile?", type: "textarea" },
+        { label: "Le client vous demande un travail non prévu sur votre fiche de poste? Que faites-vous?", type: "textarea" }
+      ]
+    },
+    {
+      id: "form8",
+      title: "ORGANISATION",
+      icon: "https://img.icons8.com/officel/80/making-notes.png",
+      fields: [
+        { label: "Vous arrivez au bureau. Que faites-vous en premier? Comment vous organisez-vous?", type: "textarea" }
+      ]
+    },
+    {
+      id: "form9",
+      title: "SATISFACTION",
+      icon: "https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/external-satisfaction-web-store-flaticons-lineal-color-flat-icons-3.png",
+      fields: [
+        { label: "Quelles ont été vos satisfactions dans les postes que vous avez occupés?", type: "textarea" },
+        { label: "Quel serait le poste Idéal pour vous?", type: "textarea" },
+        { label: "Si on vous propose le même salaire et le même nombre d\"heures, entre deux entreprises, laquelle choisissez-vous?", type: "textarea" },
+        { label: "Quand avez-vous senti dans vos précédents postes que vous avez été bien traité?", type: "textarea" },
+        { label: "Quand avez-vous senti dans vos précédents postes que vous avez été bien rémunéré?", type: "textarea" },
+        { label: "Est-ce un problème si l'on vous demande de travailler le soir et/ou le week-end?", type: "textarea" },
+        { label: "Quelle compétence pouvez-vous apporter à cette entreprise?", type: "textarea" }
+      ]
+    },
+    {
+      id: "form10",
+      title: "TEST TECHNIQUE-Python",
+      icon: "",
+      fields: [
+        { label: "Expliquez brièvement le processus d'exécution d'un fichier Python", type: "textarea" },
+        { label: "Nous savons que Python est un langage orienté objet, mais a-t-il des spécificateurs d'accès ?", type: "textarea" },
+        { label: "Quand devez-vous utiliser la copie superficielle au lieu de la copie profonde, et vice versa ?", type: "textarea" },
+        { label: "Expliquez l'utilisation de décorateurs en Python. Donnez un exemple pratique de situation où vous utiliseriez un décorateur.", type: "textarea" },
+        { label: "Comment gérer les exceptions de manière robuste en Python? Donnez des exemples de situations où les exceptions seraient appropriées", type: "textarea" },
+        { label: "Pouvez-vous expliquer comment une exception peut être attrapée dans un programme Python ?", type: "textarea" },
+        { label: "Décrivez les différences entre le threading et le multiprocessing en Python. Quand choisiriez-vous l'un par rapport à l'autre?", type: "textarea" }
+      ]
+    },
+    {
+      id: "form11",
+      title: "TEST TECHNIQUE-Javascript",
+      icon: "",
+      fields: [
+        { label: "Comparez les avantages et les inconvénients des états locaux (local state) et des états gérés globalement (global state) dans une application Vue.js ou React.js.", type: "textarea" },
+        { label: "Créez un composant fonctionnel nommé UserList qui reçoit une liste d'utilisateurs en tant que prop et affiche leurs noms dans une liste. Assurez-vous que le composant met à jour correctement le state avec la liste d'utilisateurs. (* sur vscode)", type: "textarea" },
+        { label: "Créez un composant parent nommé App qui contient le state avec une liste initiale d'utilisateurs. Ce composant doit rendre le composant UserList créé précédemment et un nouveau composant UserForm qui permet d'ajouter un nouvel utilisateur à la liste. (* sur vscode)", type: "textarea" },
+        { label: "Implémentez le composant UserForm avec un formulaire simple qui permet à l'utilisateur de saisir un nom. Lorsque le formulaire est soumis, ajoutez un nouvel utilisateur à la liste dans le state du composant parent (App). Assurez-vous que le state est mis à jour correctement. (* sur vscode)", type: "textarea" },
+      ]
+    },
+    {
+      id: "form12",
+      title: "TEST TECHNIQUE-Fullstack",
+      icon: "",
+      fields: [
+        { label: "Mettez en place une route côté serveur (Django, Flask) qui renvoie une liste d'utilisateurs au format JSON. La liste d'utilisateurs peut être stockée dans un fichier json. (* sur vscode)", type: "textarea" },
+        { label: "Comment optimisez-vous les requêtes vers une base de données pour améliorer les performances d'une application? Parlez de l'indexation, du caching, ou d'autres stratégies que vous avez déjà mise en œuvre dans vos expériences.", type: "textarea" },
+        { label: "Décrivez le processus de déploiement d'une application fullstack, en mettant l'accent sur les bonnes pratiques. Parlez de l'utilisation d'outils tels que Docker, Kubernetes, ou autres, selon votre expérience.", type: "textarea" },
+      ]
+    }
+  ];
+
   return (
-    <div className="flex items-center justify-center min-h-screen p-8 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 md:p-28">
-      {/* Container principal avec effet de verre */}
-      <div className="w-full max-w-2xl p-8 border rounded-lg shadow-2xl bg-white/90 backdrop-blur-sm border-white/20">
-        {/* En-tête avec logo ou titre */}
-        <div className="mb-8 text-center">
-          <h2 className="text-2xl font-bold text-blue-900">Formulaire d'inscription</h2>
-          <div className="flex justify-center mt-2">
-            <div className="w-24 h-1 bg-yellow-400"></div>
-          </div>
-        </div>
+    <div id="page" className="site">
+      <div className="container">
+        <div className="form-box">
+          <ProgressSteps steps={steps} activeStep={activeStep} />
 
-        {/* Barre de progression */}
-        <div className="relative flex justify-between mb-8">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13].map((step) => (
-            <div key={step} className="flex-1 px-1">
-              <div
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  completedSteps.includes(step) || currentStep >= step
-                    ? "bg-yellow-400 shadow-lg"
-                    : "bg-gray-200"
-                }`}
+          <form onSubmit={handleSubmit} className="formulaire">
+            {steps.map((step, index) => (
+              <FormSection
+                key={step.id}
+                id={step.id}
+                title={step.title}
+                icon={step.icon}
+                fields={step.fields}
+                isActive={index === activeStep}
               />
-              <div
-                className={`mt-2 text-xs text-center ${
-                  completedSteps.includes(step) || currentStep >= step
-                    ? "text-blue-900"
-                    : "text-gray-400"
-                }`}
+            ))}
+
+            <div className="btn-group">
+              <button
+                type="button"
+                className="btn-retour"
+                onClick={btnPrecedent}
+                disabled={activeStep === 0}
               >
-                {step}
-              </div>
-            </div>
-          ))}
-        </div>
+                Retour
+              </button>
 
-        {/* Contenu de l'étape */}
-        <div className="min-h-[400px] bg-white rounded-lg p-6 shadow-inner">
-          {renderStepContent()}
-        </div>
+              {activeStep < steps.length - 1 && (
+                <button
+                  type="button"
+                  className="btn-suivant"
+                  onClick={btnSuivant}
+                  disabled={activeStep === steps.length - 1}
+                >
+                  Suivant
+                </button>
+              )}
 
-        {/* Navigation et soumission */}
-        <div className="flex justify-between mt-8">
-          {currentStep > 1 && (
-            <button
-              onClick={prevStep}
-              className="flex items-center px-6 py-2 text-blue-900 transition-colors duration-300 rounded-full bg-blue-50 hover:bg-blue-100"
-            >
-              <ChevronLeft className="w-5 h-5 mr-2" /> Précédent
-            </button>
-          )}
-
-          {currentStep < 13 ? (
-            <button
-              onClick={nextStep}
-              disabled={!isStepValid(currentStep)}
-              className={`ml-auto flex items-center px-6 py-2 rounded-full transition-all duration-300 ${
-                isStepValid(currentStep)
-                  ? "bg-blue-900 text-white hover:bg-blue-800"
-                  : "bg-gray-200 text-gray-400 cursor-not-allowed"
-              }`}
-            >
-              Suivant <ChevronRight className="w-5 h-5 ml-2" />
-            </button>
-          ) : (
-            <button
-              onClick={handleSubmit}
-              disabled={isSubmitting || !isStepValid(currentStep)}
-              className={`ml-auto flex items-center px-6 py-2 rounded-full transition-all duration-300 ${
-                isStepValid(currentStep) && !isSubmitting
-                  ? "bg-yellow-400 text-blue-900 hover:bg-yellow-500"
-                  : "bg-gray-200 text-gray-400 cursor-not-allowed"
-              }`}
-            >
-              {isSubmitting ? (
-                <span className="flex items-center">
-                  <div className="w-5 h-5 mr-2 border-2 border-blue-900 rounded-full animate-spin border-t-transparent"></div>
-                  Envoi en cours...
-                </span>
-              ) : (
+              {activeStep === steps.length - 1 && (
                 <>
-                  <CheckCircle2 className="w-5 h-5 mr-2" /> Soumettre
+                  <button
+                    type="submit"
+                    className="btn-envoyer"
+                    onClick={handleSubmit}
+                  >
+                    Envoyer
+                  </button>
+
+                  <button
+                    type="button"
+                    className="btn-code-editor"
+                    onClick={() => navigate('/codeEditor')}
+                  >
+                    Teste technique
+                  </button>
                 </>
               )}
-            </button>
-          )}
-        </div>
+            </div>
 
-        {/* Messages de statut */}
-        {submissionStatus === "success" && (
-          <div className="flex items-center p-4 mt-6 text-green-800 border border-green-200 rounded-lg bg-green-50">
-            <CheckCircle2 className="w-5 h-5 mr-2 text-green-500" />
-            Formulaire soumis avec succès !
-          </div>
-        )}
-        {submissionStatus === "error" && (
-          <div className="flex items-center p-4 mt-6 text-red-800 border border-red-200 rounded-lg bg-red-50">
-            <CheckCircle2 className="w-5 h-5 mr-2 text-red-500" />
-            Erreur lors de la soumission. Veuillez réessayer.
-          </div>
-        )}
+          </form>
+        </div>
       </div>
     </div>
   );
-}
+};
 
-export default EntretientTM;
+export default Presentation;
