@@ -98,7 +98,7 @@ function A_propos() {
 
               <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
                 <button className="relative px-6 py-3 overflow-hidden text-white transition-all duration-300 rounded-lg group bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600">
-                  <span className="relative z-10">Télécharger dans Apple Store</span>
+                  <span className="relative z-10">Génération de Leads</span>
                   <div className="absolute inset-0 w-full h-full transition-all duration-300 scale-0 rounded-lg group-hover:scale-100 group-hover:bg-white/10"></div>
                 </button>
                 <button className="relative px-6 py-3 overflow-hidden text-blue-900 transition-all duration-300 rounded-lg group bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-500 hover:to-amber-400">
