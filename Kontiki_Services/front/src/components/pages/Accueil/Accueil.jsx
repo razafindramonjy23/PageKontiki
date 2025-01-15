@@ -168,7 +168,7 @@ const HomePage = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="container px-4 py-16 mx-auto">
+      <section id="about" className="container h-screen px-4 py-16 mx-auto">
         <div className="my-20 mb-20 font-sans text-center">
           <h2 className="text-4xl font-semibold text-blue-900 animate-fadeIn animation-delay-300">
             A PROPOS DE NOUS
@@ -177,7 +177,7 @@ const HomePage = () => {
             <div className="w-24 h-1 bg-yellow-400"></div>
           </div>
         </div>
-        <p className="max-w-5xl mx-auto leading-relaxed text-center text-blue-800">
+        <p className="max-w-5xl mx-auto text-2xl leading-relaxed text-center text-blue-900">
           Spécialiste du marketing digital et du traitement des données massives
           (Bigdata). Située à Antsahavola, KONTIKI SERVICE compte aujourd'hui
           plus de 30 collaborateurs.
@@ -185,7 +185,53 @@ const HomePage = () => {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-16 bg-blue-50">
+      <section className="dark:bg-gray-100 dark:text-gray-800">
+        <div className="pt-10 my-20 mb-20 font-sans text-center">
+          <h2 className="text-4xl font-semibold text-blue-900">SERVICES</h2>
+          <div className="flex justify-center mt-2">
+            <div className="w-24 h-1 bg-yellow-400"></div>
+          </div>
+        </div>
+        <div className="container flex flex-col-reverse mx-auto lg:flex-row">
+          <div className="flex flex-col px-6 py-8 space-y-6 text-white rounded-lg sm:p-8 lg:p-12 lg:w-1/2 xl:w-2/5 bg-gradient-to-br from-blue-950 to-blue-800">
+            <div className="flex space-x-2 sm:space-x-4">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+              </svg>
+              <div className="space-y-2">
+                <p className="text-lg font-medium leading-snug">Génération de Leads</p>
+                <p className="leading-snug">Collectez des prospects qualifiés et générez de nouveaux clients.</p>
+              </div>
+            </div>
+            <div className="flex space-x-2 sm:space-x-4">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+              </svg>
+              <div className="space-y-2">
+                <p className="text-lg font-medium leading-snug">Campagne Emailing</p>
+                <p className="leading-snug">Gestion de campagnes emailing, depuis la création de KIT, landing page jusqu'à l'envoi et l'analyse des résultats.</p>
+              </div>
+            </div>
+            <div className="flex space-x-2 sm:space-x-4">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+              </svg>
+              <div className="space-y-2">
+                <p className="text-lg font-medium leading-snug">Qualification des Prospects</p>
+                <p className="leading-snug">Nous qualifions les contacts pour cibler au plus juste les prospects de nos clients.</p>
+              </div>
+            </div>
+          </div>
+          <div className="lg:w-1/2 xl:w-3/5 dark:bg-gray-100">
+            <div className="flex items-center justify-center p-4 md:p-8 lg:p-12">
+              <img src="https://source.unsplash.com/640x480/" alt="" className="rounded-lg shadow-lg dark:bg-gray-500 aspect-video sm:min-h-96" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
+      {/* <section id="services" className="h-screen py-16 bg-blue-50">
         <div className="container px-4 mx-auto">
           <div className="my-20 mb-20 font-sans text-center">
             <h2 className="text-4xl font-semibold text-blue-900">SERVICES</h2>
@@ -212,7 +258,7 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* <div className="py-16 bg-white sm:py-24">
         <div className="px-6 mx-auto max-w-7xl lg:px-8">
@@ -265,6 +311,7 @@ const HomePage = () => {
           </div>
         </div>
       </div> */}
+      
       <div className="py-16 bg-white sm:py-24">
         <div className="px-6 mx-auto max-w-7xl lg:px-8">
           <div className="grid max-w-2xl grid-cols-1 mx-auto gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-center">
