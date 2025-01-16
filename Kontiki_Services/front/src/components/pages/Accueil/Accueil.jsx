@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import equipe from './img/equipe.png';
 import { Link } from 'react-router-dom';
 
+import service from '../../../assets/Images/pages/accueil/service.jpg'
+
 const images = [
   {
     src: bois,
@@ -257,20 +259,91 @@ const HomePage = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="container h-screen px-4 py-16 mx-auto">
-        <div className="my-20 mb-20 font-sans text-center">
-          <h2 className="text-4xl font-semibold text-blue-900 animate-fadeIn animation-delay-300">
-            A PROPOS DE NOUS
-          </h2>
-          <div className="flex justify-center mt-2">
-            <div className="w-24 h-1 bg-yellow-400"></div>
+      <section id="about" className="relative min-h-screen overflow-hidden bg-gradient-to-b from-white to-gray-50">
+        {/* Decorative elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute right-0 w-64 h-64 transform translate-x-1/2 bg-yellow-100 rounded-full top-20 blur-3xl opacity-30"></div>
+          <div className="absolute left-0 transform -translate-x-1/2 bg-blue-100 rounded-full bottom-20 w-96 h-96 blur-3xl opacity-30"></div>
+        </div>
+
+        <div className="container relative px-4 py-24 mx-auto">
+          {/* Header */}
+          <div className="mb-16 text-center">
+            <h2 className="text-5xl font-bold text-transparent bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text">
+              À PROPOS DE NOUS
+            </h2>
+            <div className="flex justify-center mt-4">
+              <div className="w-32 h-1.5 bg-gradient-to-r from-yellow-400 to-yellow-300 rounded-full"></div>
+            </div>
+          </div>
+
+          {/* Main content */}
+          <div className="max-w-6xl mx-auto">
+            <div className="grid gap-12 md:grid-cols-2">
+              {/* Left column with main text */}
+              <div className="space-y-8">
+                <div className="p-6 transition-shadow duration-300 bg-white shadow-xl rounded-2xl hover:shadow-2xl">
+                  <h3 className="mb-4 text-2xl font-semibold text-blue-900">
+                    Notre Expertise
+                  </h3>
+                  <p className="text-lg leading-relaxed text-blue-800/80">
+                    Spécialiste du marketing digital et du traitement des données massives
+                    (Bigdata). Notre expertise nous permet d'offrir des solutions innovantes
+                    et performantes à nos clients.
+                  </p>
+                </div>
+
+                <div className="p-6 text-white shadow-xl bg-gradient-to-br from-blue-900 to-blue-800 rounded-2xl">
+                  <h3 className="mb-4 text-2xl font-semibold">
+                    Notre Équipe
+                  </h3>
+                  <p className="text-lg leading-relaxed text-blue-50">
+                    KONTIKI SERVICE compte aujourd'hui plus de
+                    30 collaborateurs passionnés et experts dans leurs domaines.
+                  </p>
+                </div>
+              </div>
+
+              {/* Right column with stats */}
+              <div className="grid grid-cols-2 gap-6">
+                <div className="flex flex-col items-center justify-center p-6 text-center transition-shadow duration-300 bg-white shadow-xl rounded-2xl hover:shadow-2xl">
+                  <span className="text-4xl font-bold text-blue-900">30+</span>
+                  <span className="mt-2 text-blue-600">Collaborateurs</span>
+                </div>
+                <div className="flex flex-col items-center justify-center p-6 text-center transition-shadow duration-300 bg-white shadow-xl rounded-2xl hover:shadow-2xl">
+                  <span className="text-4xl font-bold text-blue-900">10+</span>
+                  <span className="mt-2 text-blue-600">Années d'expérience</span>
+                </div>
+                <div className="flex flex-col items-center justify-center col-span-2 p-6 text-center transition-shadow duration-300 bg-white shadow-xl rounded-2xl hover:shadow-2xl">
+                  <div className="flex items-center justify-center w-16 h-16 mb-4 bg-yellow-100 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </div>
+                  <span className="text-xl font-semibold text-blue-900">
+                    Expert en Marketing Digital & Big Data
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Additional info */}
+            <div className="p-8 mt-12 bg-white shadow-xl rounded-2xl">
+              <div className="flex items-center space-x-4">
+                <div className="flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <p className="text-lg text-blue-900">
+                  Située à Antsahavola, notre équipe est prête à répondre à vos besoins
+                  et à vous accompagner dans vos projets digitaux.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-        <p className="max-w-5xl mx-auto text-2xl leading-relaxed text-center text-blue-900">
-          Spécialiste du marketing digital et du traitement des données massives
-          (Bigdata). Située à Antsahavola, KONTIKI SERVICE compte aujourd'hui
-          plus de 30 collaborateurs.
-        </p>
       </section>
 
       {/* Services Section */}
@@ -326,7 +399,7 @@ const HomePage = () => {
             >
               <div className="relative overflow-hidden shadow-2xl rounded-2xl">
                 <img
-                  src="/api/placeholder/800/600"
+                  src={service}
                   alt="Services illustration"
                   className="object-cover w-full h-full"
                 />
