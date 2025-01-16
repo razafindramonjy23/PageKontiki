@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import bois from './img/bois.jpg';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import equipe from './img/equipe.png';
 import { Link } from 'react-router-dom';
 
@@ -25,37 +25,79 @@ const images = [
 
 const solutions = [
   {
-    title: "SOLUTIONS DIGITALES",
-    description: "Nous élaborons des solutions digitales innovantes adaptées à vos besoins spécifiques. Notre expertise en marketing digital vous permet d'atteindre vos objectifs commerciaux.",
+    title: "Solution Digitale",
+    description: "Transformez votre présence en ligne avec nos solutions digitales innovantes. Nous créons des expériences numériques qui captivent votre audience et stimulent la croissance.",
+    image: "/api/placeholder/600/400",
     links: [
-      "Marketing Digital",
-      "Développement Web",
-      "Solutions E-commerce"
+      "Développement d'applications web sur mesure",
+      "Optimisation des performances digitales",
+      "Intégration de solutions e-commerce"
     ]
   },
   {
-    title: "SERVICES DATA",
-    description: "Spécialistes du traitement des données massives (BigData), nous vous aidons à exploiter pleinement vos données pour prendre des décisions éclairées.",
+    title: "Marketing Digital",
+    description: "Maximisez votre impact digital avec nos stratégies marketing ciblées. Notre approche data-driven assure des résultats mesurables et durables.",
+    image: "/api/placeholder/600/400",
     links: [
-      "Analyse de données",
-      "Business Intelligence",
-      "Data Mining"
+      "Stratégie de contenu personnalisée",
+      "Campagnes publicitaires ciblées",
+      "Analyse et reporting détaillé"
     ]
   },
   {
-    title: "CONSULTING",
-    description: "Notre équipe de consultants vous accompagne dans votre transformation digitale avec des solutions sur mesure pour votre entreprise.",
+    title: "Automatisation",
+    description: "Optimisez vos processus avec nos solutions d'automatisation intelligentes. Gagnez en efficacité et réduisez les tâches répétitives.",
+    image: "/api/placeholder/600/400",
     links: [
-      "Stratégie Digitale",
-      "Accompagnement Projet",
-      "Formation"
+      "Automatisation des workflows",
+      "Intégration CRM",
+      "Solutions de reporting automatisé"
     ]
   }
 ];
 
+const nextSlide = () => {
+  setCurrentSlide((prev) => (prev + 1) % solutions.length);
+};
+
+const prevSlide = () => {
+  setCurrentSlide((prev) => (prev - 1 + solutions.length) % solutions.length);
+};
+
+const services = [
+  {
+    title: "Génération de Leads",
+    description: "Collectez des prospects qualifiés et générez de nouveaux clients.",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-8 h-8">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+    )
+  },
+  {
+    title: "Campagne Emailing",
+    description: "Gestion de campagnes emailing, depuis la création de KIT, landing page jusqu'à l'envoi et l'analyse des résultats.",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-8 h-8">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
+    )
+  },
+  {
+    title: "Qualification des Prospects",
+    description: "Nous qualifions les contacts pour cibler au plus juste les prospects de nos clients.",
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-8 h-8">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+      </svg>
+    )
+  },
+]
+
 const HomePage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -101,67 +143,114 @@ const HomePage = () => {
       </section>
 
       {/* Solution Carousel Section */}
-      <section className="py-16 bg-white">
+      <section className="py-20 overflow-hidden bg-gradient-to-br from-gray-50 to-white">
         <div className="container px-4 mx-auto">
-          <div className="my-20 mb-20 font-sans text-center">
-            <h2 className="text-4xl font-semibold text-blue-900">NOS SOLUTIONS</h2>
-            <div className="flex justify-center mt-2">
-              <div className="w-24 h-1 bg-yellow-400"></div>
-            </div>
+          {/* Header */}
+          <div className="mb-16 text-center">
+            <motion.h2
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-5xl font-bold text-transparent bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text"
+            >
+              NOS SOLUTIONS
+            </motion.h2>
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="flex justify-center mt-4"
+            >
+              <div className="w-32 h-1.5 bg-gradient-to-r from-yellow-400 to-yellow-300 rounded-full"></div>
+            </motion.div>
           </div>
 
-          <div className="relative w-full max-w-6xl mx-auto">
-            <div className="flex flex-col items-start gap-8 lg:flex-row">
+          {/* Main content */}
+          <div className="relative max-w-6xl mx-auto">
+            <div className="flex flex-col gap-8 lg:flex-row">
               {/* Navigation tabs */}
-              <div className="flex w-full gap-4 overflow-x-auto lg:w-1/4 lg:flex-col lg:overflow-visible">
+              <div className="flex w-full gap-4 overflow-x-auto lg:flex-col lg:w-1/4 lg:overflow-visible">
                 {solutions.map((solution, index) => (
-                  <button
+                  <motion.button
                     key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
                     onClick={() => setCurrentSlide(index)}
-                    className={`whitespace-nowrap px-4 py-2 text-left transition-all ${currentSlide === index
-                      ? 'border-b-2 lg:border-b-0 lg:border-l-2 border-yellow-400 text-blue-900 font-semibold'
-                      : 'text-blue-800 hover:text-yellow-400'
-                      }`}
+                    className={`
+                    whitespace-nowrap px-6 py-4 text-left transition-all rounded-lg
+                    ${currentSlide === index
+                        ? 'bg-blue-900 text-white shadow-lg'
+                        : 'text-blue-900 hover:bg-blue-50'
+                      }
+                  `}
                   >
                     {solution.title}
-                  </button>
+                  </motion.button>
                 ))}
               </div>
 
-              {/* Main content */}
-              <div className="w-full lg:w-3/4 bg-gradient-to-br from-blue-900 to-blue-800 rounded-lg p-8 text-white min-h-[400px]">
-                <div className="max-w-2xl">
-                  <h2 className="mb-4 text-2xl font-bold">{solutions[currentSlide].title}</h2>
-                  <p className="mb-8">{solutions[currentSlide].description}</p>
-
-                  <div className="space-y-2">
-                    {solutions[currentSlide].links.map((link, index) => (
-                      <div
-                        key={index}
-                        className="py-2 transition-colors border-b cursor-pointer border-yellow-400/20 hover:text-yellow-400"
-                      >
-                        {link}
+              {/* Content carousel */}
+              <div className="w-full lg:w-3/4">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentSlide}
+                    initial={{ opacity: 0, x: 100 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -100 }}
+                    transition={{ duration: 0.5 }}
+                    className="overflow-hidden shadow-2xl bg-gradient-to-br from-blue-900 to-blue-800 rounded-2xl"
+                  >
+                    <div className="flex flex-col lg:flex-row">
+                      <div className="p-8 text-white lg:w-1/2">
+                        <h3 className="mb-4 text-2xl font-bold">{solutions[currentSlide].title}</h3>
+                        <p className="mb-6 text-blue-50">{solutions[currentSlide].description}</p>
+                        <div className="space-y-3">
+                          {solutions[currentSlide].links.map((link, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center gap-2 py-2 transition-colors border-b cursor-pointer border-yellow-400/20 hover:text-yellow-400"
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                              </svg>
+                              {link}
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                    ))}
-                  </div>
-                </div>
+                      <div className="relative lg:w-1/2">
+                        <img
+                          src={solutions[currentSlide].image}
+                          alt={solutions[currentSlide].title}
+                          className="object-cover w-full h-full"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/50 to-transparent"></div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
               </div>
             </div>
 
             {/* Navigation arrows */}
-            <div className="absolute flex justify-between w-full -translate-y-1/2 pointer-events-none top-1/2">
-              <button
+            <div className="absolute flex justify-between w-full px-4 -translate-y-1/2 pointer-events-none top-1/2">
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
                 onClick={prevSlide}
-                className="p-2 transition-colors bg-white rounded-full shadow-lg pointer-events-auto hover:bg-yellow-50"
+                className="flex items-center justify-center w-12 h-12 transition-colors bg-white rounded-full shadow-lg pointer-events-auto hover:bg-yellow-50"
               >
                 <ChevronLeft className="w-6 h-6 text-blue-900" />
-              </button>
-              <button
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
                 onClick={nextSlide}
-                className="p-2 transition-colors bg-white rounded-full shadow-lg pointer-events-auto hover:bg-yellow-50"
+                className="flex items-center justify-center w-12 h-12 transition-colors bg-white rounded-full shadow-lg pointer-events-auto hover:bg-yellow-50"
               >
                 <ChevronRight className="w-6 h-6 text-blue-900" />
-              </button>
+              </motion.button>
             </div>
           </div>
         </div>
@@ -185,133 +274,71 @@ const HomePage = () => {
       </section>
 
       {/* Services Section */}
-      <section className="dark:bg-gray-100 dark:text-gray-800">
-        <div className="pt-10 my-20 mb-20 font-sans text-center">
-          <h2 className="text-4xl font-semibold text-blue-900">SERVICES</h2>
-          <div className="flex justify-center mt-2">
-            <div className="w-24 h-1 bg-yellow-400"></div>
-          </div>
+      <section className="relative py-20 overflow-hidden bg-gradient-to-br from-gray-50 to-white">
+        {/* Decorative background elements */}
+        <div className="absolute top-0 left-0 w-full h-full">
+          <div className="absolute top-0 right-0 w-1/3 transform translate-x-1/2 -translate-y-1/2 rounded-full h-1/3 bg-blue-50 blur-3xl opacity-30"></div>
+          <div className="absolute bottom-0 left-0 w-1/3 transform -translate-x-1/2 translate-y-1/2 rounded-full h-1/3 bg-yellow-50 blur-3xl opacity-30"></div>
         </div>
-        <div className="container flex flex-col-reverse mx-auto lg:flex-row">
-          <div className="flex flex-col px-6 py-8 space-y-6 text-white rounded-lg sm:p-8 lg:p-12 lg:w-1/2 xl:w-2/5 bg-gradient-to-br from-blue-950 to-blue-800">
-            <div className="flex space-x-2 sm:space-x-4">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-              </svg>
-              <div className="space-y-2">
-                <p className="text-lg font-medium leading-snug">Génération de Leads</p>
-                <p className="leading-snug">Collectez des prospects qualifiés et générez de nouveaux clients.</p>
-              </div>
-            </div>
-            <div className="flex space-x-2 sm:space-x-4">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-              </svg>
-              <div className="space-y-2">
-                <p className="text-lg font-medium leading-snug">Campagne Emailing</p>
-                <p className="leading-snug">Gestion de campagnes emailing, depuis la création de KIT, landing page jusqu'à l'envoi et l'analyse des résultats.</p>
-              </div>
-            </div>
-            <div className="flex space-x-2 sm:space-x-4">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-              </svg>
-              <div className="space-y-2">
-                <p className="text-lg font-medium leading-snug">Qualification des Prospects</p>
-                <p className="leading-snug">Nous qualifions les contacts pour cibler au plus juste les prospects de nos clients.</p>
-              </div>
+
+        <div className="container relative px-4 mx-auto">
+          {/* Header */}
+          <div className="mb-16 text-center">
+            <h2 className="text-5xl font-bold text-transparent bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text">
+              NOS SERVICES
+            </h2>
+            <div className="flex justify-center mt-4">
+              <div className="h-1.5 w-32 bg-gradient-to-r from-yellow-400 to-yellow-300 rounded-full"></div>
             </div>
           </div>
-          <div className="lg:w-1/2 xl:w-3/5 dark:bg-gray-100">
-            <div className="flex items-center justify-center p-4 md:p-8 lg:p-12">
-              <img src="https://source.unsplash.com/640x480/" alt="" className="rounded-lg shadow-lg dark:bg-gray-500 aspect-video sm:min-h-96" />
+
+          {/* Services Grid */}
+          <div className="grid items-center gap-8 lg:grid-cols-2">
+            {/* Services Cards */}
+            <div className="space-y-6">
+              {services.map((service, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="p-6 transition-all duration-300 bg-white border border-gray-100 shadow-lg group rounded-xl hover:shadow-xl"
+                >
+                  <div className="flex items-start space-x-4">
+                    <div className="flex-shrink-0 p-3 transition-colors duration-300 rounded-lg bg-blue-50 group-hover:bg-blue-100">
+                      {service.icon}
+                    </div>
+                    <div>
+                      <h3 className="mb-2 text-xl font-semibold text-gray-900">{service.title}</h3>
+                      <p className="leading-relaxed text-gray-600">{service.description}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
             </div>
+
+            {/* Image Section */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="relative"
+            >
+              <div className="relative overflow-hidden shadow-2xl rounded-2xl">
+                <img
+                  src="/api/placeholder/800/600"
+                  alt="Services illustration"
+                  className="object-cover w-full h-full"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent"></div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      
-      {/* <section id="services" className="h-screen py-16 bg-blue-50">
-        <div className="container px-4 mx-auto">
-          <div className="my-20 mb-20 font-sans text-center">
-            <h2 className="text-4xl font-semibold text-blue-900">SERVICES</h2>
-            <div className="flex justify-center mt-2">
-              <div className="w-24 h-1 bg-yellow-400"></div>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-            <div className="p-6 text-center transition-shadow duration-300 bg-white rounded-lg shadow-lg hover:shadow-xl">
-              <h3 className="mb-4 text-xl font-semibold text-blue-900">Génération de Leads</h3>
-              <p className="text-blue-800">
-                Collectez des prospects qualifiés et générez de nouveaux clients.              </p>
-            </div>
-            <div className="p-6 text-center transition-shadow duration-300 bg-white rounded-lg shadow-lg hover:shadow-xl">
-              <h3 className="mb-4 text-xl font-semibold text-blue-900">Campagne Emailing</h3>
-              <p className="text-blue-800">
-                Gestion de campagnes emailing, depuis la création de KIT, landing page jusqu'à l'envoi et l'analyse des résultats.
-              </p>
-            </div>
-            <div className="p-6 text-center transition-shadow duration-300 bg-white rounded-lg shadow-lg hover:shadow-xl">
-              <h3 className="mb-4 text-xl font-semibold text-blue-900">Qualification des Prospects</h3>
-              <p className="text-blue-800">
-                Nous qualifions les contacts pour cibler au plus juste les prospects de nos clients.              </p>
-            </div>
-          </div>
-        </div>
-      </section> */}
 
-      {/* <div className="py-16 bg-white sm:py-24">
-        <div className="px-6 mx-auto max-w-7xl lg:px-8">
-          <div className="grid max-w-2xl grid-cols-1 mx-auto gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="lg:pr-8"
-            >
-              <h2 className="text-4xl font-bold tracking-tight text-blue-950 sm:text-6xl">
-                Rejoignez-nous
-              </h2>
-              <div className="w-20 h-2 mt-4 rounded-full bg-amber-400"></div>
-              <p className="mt-6 text-lg leading-8 text-gray-600">
-                Embarquez dans une aventure professionnelle unique avec Kontiki Service.
-                Nous recherchons des talents passionnés qui souhaitent faire partie d'une
-                équipe dynamique et innovante.
-              </p>
-              <div className="mt-8">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 text-white transition-colors rounded-full bg-blue-950 hover:bg-blue-900"
-                >
-                  Postuler maintenant
-                  <span className="ml-2 text-amber-400">→</span>
-                </motion.button>
-              </div>
-            </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="relative"
-            >
-              <div className="aspect-[3/2] overflow-hidden rounded-xl">
-                <img
-                  src={equipe}
-                  alt="Équipe Kontiki"
-                  className="object-cover w-full h-full shadow-2xl rounded-xl"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-950/20 to-transparent rounded-xl"></div>
-              </div>
-              <div className="absolute w-32 h-32 -bottom-6 -left-6 bg-amber-400 rounded-xl -z-10"></div>
-            </motion.div>
-          </div>
-        </div>
-      </div> */}
-      
       <div className="py-16 bg-white sm:py-24">
         <div className="px-6 mx-auto max-w-7xl lg:px-8">
           <div className="grid max-w-2xl grid-cols-1 mx-auto gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-center">
