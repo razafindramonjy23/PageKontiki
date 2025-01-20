@@ -24,6 +24,10 @@ import Admin from './components/pages/Administration/Admin.jsx';
 import EntretienTM from './components/pages/Test/allTest/testTM/EntretienTM.jsx';
 
 
+//DEPARTEMENTS
+// import TraficManager from './components/pages/A_propos/Departements/TM.jsx'
+
+
 function App() {
 
 
@@ -35,13 +39,10 @@ function App() {
       <Routes>
         <Route path='/' element={<Accueil />} />
         <Route path='/accueil' element={<Accueil />} />
-        {/* <Route path='/services' element={<Services />} /> */}
         <Route path='/test' element={<Test />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/services' element={<Services />} />
-        {/* <Route path='/apropos' element={<A_propos />} /> */}
-
-
+        
 
       
 
@@ -55,10 +56,9 @@ function App() {
 
         {/* A PROPOS  */}
         <Route path='A_propos' element={<A_propos />} />
-        {/* <Route path='activites' element={<Activites />} /> */}
-        {/* <Route path='dev' element={<DevActivites/>} /> */}
 
 
+        {/* <Route path= 'TraficManager' element={<TraficManager />} /> */}
 
 
         {/* Route protegee */}

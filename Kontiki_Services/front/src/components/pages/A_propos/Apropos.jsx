@@ -14,6 +14,8 @@ import europeens from '../../../assets/Images/pages/a_propos/europeens.jpg'
 import rita from '../../../assets/Images/pages/a_propos/Rita.jpg'
 import tefy from '../../../assets/Images/pages/a_propos/tefy.jpg'
 
+
+
 function A_propos() {
   const [activeEvent, setActiveEvent] = useState(null);
 
@@ -226,11 +228,11 @@ function A_propos() {
 
           <div className="grid gap-12 md:grid-cols-3">
             {[
-              { img: user1, name: "Rita Kontiki", role: "Commercial", description: "Description", dept: "/call" },
-              { img: user2, name: "Mamisoa Kontiki", role: "Affiliate", description: "Bonjour", dept: "/TeamCall" },
+              { img: user1, name: "Rita Kontiki", role: "Commercial", description: "Description", dept: "/marketing" },
+              { img: user2, name: "Mamisoa Kontiki", role: "Affiliate", description: "Bonjour", dept: "/rd" },
               { img: user3, name: "Andre Kontiki", role: "Dévellopeur", description: "Nous sommes là pour vous", dept: "/dev" },
-              { img: user4, name: "Deddy Kontiki", role: "Trafic Manager", description: "Nous sommes la team call", dept: "/TeamCall" },
-              { img: user3, name: "Landy Kontiki", role: "RD", description: "hello", dept: "/TeamRD" }
+              { img: user4, name: "Deddy Kontiki", role: "Trafic Manager", description: "Nous sommes la team call", dept: "/am" },
+              { img: user3, name: "Landy Kontiki", role: "RD", description: "hello", dept: "/tm" }
             ].map((member, index) => (
               <div key={index} className="relative p-8 transition-all duration-500 shadow-lg group bg-white/80 backdrop-blur-sm rounded-2xl hover:scale-105 hover:shadow-blue-200">
                 <div className="absolute inset-x-0 flex justify-center -top-16">

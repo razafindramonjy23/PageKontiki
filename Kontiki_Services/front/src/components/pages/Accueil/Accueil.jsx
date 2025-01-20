@@ -438,7 +438,7 @@ const HomePage = () => {
                     whileTap={{ scale: 0.95 }}
                     className="px-8 py-4 text-white transition-colors rounded-full bg-blue-950 hover:bg-blue-900"
                   >
-                    Postuler maintenant
+                    Postuler chez nous
                     <span className="ml-2 text-amber-400">→</span>
                   </motion.button>
                 </Link>

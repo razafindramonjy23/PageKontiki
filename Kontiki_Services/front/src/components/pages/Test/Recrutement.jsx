@@ -60,7 +60,7 @@ const KontikiTest = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
       {/* Hero Section */}
-      <div className="relative py-16 overflow-hidden bg-blue-950">
+      {/* <div className="relative py-16 overflow-hidden bg-blue-950">
         
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900 to-blue-950 opacity-90"></div>
@@ -85,6 +85,36 @@ const KontikiTest = () => {
             </motion.div>
           </div>
         </div>
+      </div> */}
+      <div className="relative h-96">
+        <div className="absolute inset-0">
+          <img
+            src="/api/placeholder/1920/400"
+            alt="Dark background"
+            className="object-cover w-full h-full brightness-50"
+          />
+          <div className="absolute inset-0 bg-blue-100" />
+        </div>
+
+        <div className="relative flex flex-col items-center justify-center h-full max-w-5xl px-4 mx-auto sm:px-6 lg:px-8">
+          <motion.h1
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl"
+          >
+            Nos Départements
+          </motion.h1>
+
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="flex justify-center mt-4"
+          >
+            <div className="w-32 h-2 rounded-full bg-amber-400" />
+          </motion.div>
+        </div>
       </div>
 
       {/* Services Grid */}
@@ -98,7 +128,7 @@ const KontikiTest = () => {
               whileInView="visible"
               viewport={{ once: true }}
             >
-              <Link 
+              <Link
                 to={service.route}
                 className="group relative block h-full overflow-hidden rounded-2xl bg-white p-8 shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]"
               >
