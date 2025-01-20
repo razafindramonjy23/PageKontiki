@@ -126,26 +126,28 @@ function A_propos() {
         </motion.section>
       </div>
 
-      {/* Vision Section */}
       <section className="relative py-32">
         <div className="absolute inset-0 bg-gradient-to-b from-blue-100/80 to-amber-50/80 backdrop-blur-sm"></div>
-        <div className="container relative flex flex-col items-center gap-32 px-6 mx-auto lg:flex-row lg:px-20">
+        <div className="container relative grid gap-16 px-6 mx-auto lg:grid-cols-2 lg:gap-24">
           <motion.div
             variants={FadeRight(0.8)}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="lg:w-1/2"
+            className="relative group"
           >
-            <h2 className="mb-4 text-3xl font-bold text-blue-800">Des métiers d'avenirs</h2>
-            <p className="mb-8 text-lg text-black-700">
+            <h2 className="mb-6 text-3xl font-bold text-blue-800">Des métiers d'avenir</h2>
+            <p className="mb-8 text-lg text-slate-700">
               Nous offrons une opportunité aux jeunes malgaches d'exprimer leurs potentiels et d'occuper des métiers d'avenir challengeant.
             </p>
-            <img
-              src={rita}
-              alt="Photo de Rita"
-              className='transition-all duration-300 shadow-lg rounded-2xl hover:scale-105 hover:shadow-blue-200'
-            />
+            <div className="relative overflow-hidden group">
+              <div className="absolute transition-all duration-300 opacity-0 -inset-4 bg-gradient-to-r from-blue-600/20 to-blue-400/20 rounded-2xl blur-xl group-hover:opacity-100"></div>
+              <img
+                src={rita}
+                alt="Photo de Rita"
+                className="relative w-full transition-all duration-500 shadow-lg h-96 object-cover rounded-2xl hover:scale-[1.02]"
+              />
+            </div>
           </motion.div>
 
           <motion.div
@@ -153,26 +155,29 @@ function A_propos() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="lg:w-1/2"
+            className="relative group lg:mt-32"
           >
-            <h2 className="mb-4 text-3xl font-bold text-blue-800">Notre vision</h2>
-            <p className="mb-8 text-lg text-black-700">
+            <h2 className="mb-6 text-3xl font-bold text-blue-800">Notre vision</h2>
+            <p className="mb-8 text-lg text-slate-700">
               Vous évoluerez dans l'environnement passionnant du marketing digital, et gagnerez rapidement en compétence et en responsabilité pour construire ensemble l'avenir de la société.
             </p>
-            <img
-              src={tefy}
-              alt="Photo de Tefy"
-              className='transition-all duration-300 shadow-lg rounded-2xl hover:scale-105 hover:shadow-amber-200'
-            />
+            <div className="relative overflow-hidden group">
+              <div className="absolute transition-all duration-300 opacity-0 -inset-4 bg-gradient-to-r from-amber-500/20 to-amber-300/20 rounded-2xl blur-xl group-hover:opacity-100"></div>
+              <img
+                src={tefy}
+                alt="Photo de Tefy"
+                className="relative w-full transition-all duration-500 shadow-lg h-96 object-cover rounded-2xl hover:scale-[1.02]"
+              />
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Partners Section */}
+      {/* Nouvelle section Partenaires */}
       <section className="relative py-32 bg-white/50">
         <div className="container relative px-6 mx-auto">
           <div className="mb-20 text-center">
-            <h2 className="text-4xl font-bold transition-all duration-700 ease-in-out text-800 hover:text-5xl">
+            <h2 className="text-4xl font-bold text-blue-800 transition-all duration-700 ease-in-out hover:text-5xl">
               Notre partenaire de services
             </h2>
             <div className="flex justify-center mt-4">
@@ -180,17 +185,19 @@ function A_propos() {
             </div>
           </div>
 
-          <div className="flex flex-col items-center gap-12 lg:flex-row lg:px-32">
+          <div className="grid gap-16 lg:grid-cols-2 lg:gap-24">
             <motion.div
               variants={FadeRight(0.8)}
               initial="hidden"
-              animate="visible"
-              className="lg:w-1/2"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="relative group"
             >
+              <div className="absolute transition-all duration-300 opacity-0 -inset-4 bg-gradient-to-r from-blue-600/10 to-amber-400/10 rounded-2xl blur-xl group-hover:opacity-100"></div>
               <img
                 src={europeens}
                 alt="KONTIKI Digital app"
-                className="w-full transition-all duration-300 shadow-lg rounded-2xl hover:scale-105 hover:shadow-blue-200"
+                className="relative w-full transition-all duration-500 shadow-lg h-96 object-cover rounded-2xl hover:scale-[1.02]"
               />
             </motion.div>
 
@@ -199,16 +206,20 @@ function A_propos() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="lg:w-1/2"
+              className="flex items-center"
             >
-              <p className="text-2xl text-blue-700">
-                L'agence propose à ses clients européens des prestations de publicité digitale,
-                de conseil en communication et CRM, de génération de prospects qualifiés et d'animation de bases de contacts.
+              <p className="text-2xl font-light leading-relaxed text-blue-700">
+                L'agence propose à ses clients européens des prestations de 
+                <span className="font-medium"> publicité digitale</span>,
+                de <span className="font-medium">conseil en communication</span> et CRM, 
+                de <span className="font-medium">génération de prospects qualifiés</span> et 
+                d'animation de bases de contacts.
               </p>
             </motion.div>
           </div>
         </div>
       </section>
+
 
       {/* Team Section */}
       <motion.section

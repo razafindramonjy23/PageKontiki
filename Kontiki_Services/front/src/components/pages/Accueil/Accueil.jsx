@@ -146,6 +146,7 @@ const HomePage = () => {
 
       {/* Solution Carousel Section */}
       <section className="py-20 overflow-hidden bg-gradient-to-br from-gray-50 to-white">
+        
         <div className="container px-4 mx-auto">
           {/* Header */}
           <div className="mb-16 text-center">

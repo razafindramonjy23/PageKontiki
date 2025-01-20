@@ -81,15 +81,21 @@ export default function ContactForm() {
 
   return (
     <>
-      <div className="min-h-screen pt-20 bg-gradient-to-br from-blue-950 via-blue-900 to-blue-800">
+      <div className="min-h-screen pt-20 bg-gradient-to-br ">
+        {/* Élément décoratif */}
+        <div className="fixed inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute bg-blue-500 rounded-full -top-40 -right-40 w-80 h-80 mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+          <div className="absolute top-0 rounded-full -left-4 w-72 h-72 bg-amber-300 mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+          <div className="absolute bg-blue-400 rounded-full -bottom-8 left-20 w-72 h-72 mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+        </div>
         <div className="max-w-5xl px-4 py-16 mx-auto">
           {/* Header with decorative elements */}
           <div className="relative mb-8 text-center">
-            <h1 className="text-4xl font-bold text-white md:text-5xl">Contactez Kontiki Service</h1>
+            <h1 className="text-4xl font-bold text-blue-950 md:text-5xl">Contactez Kontiki Service</h1>
             <div className="flex justify-center mt-4">
               <div className="w-32 h-2 rounded-full bg-amber-400"></div>
             </div>
-            <p className="mt-4 text-lg text-blue-200">
+            <p className="mt-4 text-lg text-blue-900">
               Nous sommes à votre écoute pour toute demande
             </p>
           </div>
