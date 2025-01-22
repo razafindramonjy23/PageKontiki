@@ -14,6 +14,10 @@ export default {
       fontFamily: {
         sans:['Poppins', 'sans-serif']
       },
+      colors: {
+        primary: '#003087', // Bleu Kontiki
+        secondary: '#FFD700', // Jaune Kontiki
+      },
       animation: {
         blob: 'blob 7s infinite',
         fadeIn: 'fadeIn 1s ease-out'

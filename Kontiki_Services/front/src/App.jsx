@@ -27,6 +27,8 @@ import EntretienTM from './components/pages/Test/allTest/testTM/EntretienTM.jsx'
 //DEPARTEMENTS
 // import TraficManager from './components/pages/A_propos/Departements/TM.jsx'
 
+import Commercial from './components/pages/Test/FichePoste/Commercial.jsx'
+
 
 function App() {
 
@@ -44,8 +46,6 @@ function App() {
         <Route path='/services' element={<Services />} />
         
 
-      
-
         {/* TESTES */}
         {/* <Route path='testDev' element={<TestDev />} /> */}
         {/* <Route path='testTM' element={<testTM />} /> */}
@@ -54,11 +54,16 @@ function App() {
         <Route path='/entretienDev' element={<EntretienDev />} />
         <Route path='/entretienTM' element={<EntretienTM/>} />
 
+
+        {/* Fiche de postes */}
+        <Route path='/commercial' element={<Commercial />} />
+
+
         {/* A PROPOS  */}
         <Route path='A_propos' element={<A_propos />} />
 
 
-        {/* <Route path= 'TraficManager' element={<TraficManager />} /> */}
+        
 
 
         {/* Route protegee */}

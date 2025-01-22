@@ -26,7 +26,7 @@ const KontikiTest = () => {
 
   const services = [
     {
-      title: "Test pour les Développeurs",
+      title: "Développeurs",
       description: "N'hésitez pas à faire notre test pour rejoindre la communauté",
       icon: "https://img.icons8.com/ios/50/programming-flag.png",
       route: "/entretienDev"
@@ -44,7 +44,7 @@ const KontikiTest = () => {
       route: "/testAM"
     },
     {
-      title: "Test RD",
+      title: "Responsable Deliverability",
       description: "L'affilié reçoit une commission qui varie.",
       icon: "https://img.icons8.com/external-outline-black-m-oki-orlando/32/external-bulk-mai-email-marketing-outline-outline-black-m-oki-orlando.png",
       route: "/testAM"
@@ -53,7 +53,7 @@ const KontikiTest = () => {
       title: "Commercial",
       description: "L'affilié reçoit une commission qui varie.",
       icon: "https://img.icons8.com/ios/50/shopping-mall.png",
-      route: "/testAM"
+      route: "/commercial"
     }
   ];
 
@@ -101,9 +101,9 @@ const KontikiTest = () => {
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl"
+            className="text-4xl font-bold tracking-tight text-blue-950 sm:text-5xl md:text-6xl"
           >
-            Nos Départements
+            EXPLORER NOS OPPORTUNITÉS <span className="flex justify-center">DE CARRIÈRE</span> 
           </motion.h1>
 
           <motion.div

@@ -237,12 +237,12 @@ const HomePage = () => {
             </div>
 
             {/* Navigation arrows */}
-            <div className="absolute flex justify-between w-full px-4 -translate-y-1/2 pointer-events-none top-1/2">
+            <div className="absolute flex justify-between w-full px-4 pointer-events-none -translate-y-2/2 top-1/2">
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={prevSlide}
-                className="flex items-center justify-center w-12 h-12 transition-colors bg-white rounded-full shadow-lg pointer-events-auto hover:bg-yellow-50"
+                className="flex items-center justify-center w-12 h-12 transition-colors bg-transparent rounded-full shadow-lg pointer-events-auto hover:bg-yellow-50"
               >
                 <ChevronLeft className="w-6 h-6 text-blue-900" />
               </motion.button>
@@ -250,7 +250,7 @@ const HomePage = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={nextSlide}
-                className="flex items-center justify-center w-12 h-12 transition-colors bg-white rounded-full shadow-lg pointer-events-auto hover:bg-yellow-50"
+                className="flex items-center justify-center w-12 h-12 transition-colors bg-transparent rounded-full shadow-lg pointer-events-auto hover:bg-yellow-50"
               >
                 <ChevronRight className="w-6 h-6 text-blue-900" />
               </motion.button>
