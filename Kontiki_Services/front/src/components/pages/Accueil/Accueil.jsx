@@ -118,7 +118,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen font-sans bg-gray-50">
       {/* Hero Section with Carousel */}
       <section className="relative h-screen overflow-hidden animate-fadeIn animation-delay-300">
         {images.map((image, index) => (
@@ -146,7 +146,7 @@ const HomePage = () => {
 
       {/* Solution Carousel Section */}
       <section className="py-20 overflow-hidden bg-gradient-to-br from-gray-50 to-white">
-        
+
         <div className="container px-4 mx-auto">
           {/* Header */}
           <div className="mb-16 text-center">
@@ -154,7 +154,7 @@ const HomePage = () => {
               initial={{ opacity: 0, y: -20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-5xl font-bold text-transparent bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text"
+              className="font-sans text-5xl font-bold text-transparent bg-gradient-to-r from-blue-950 to-blue-800 bg-clip-text"
             >
               NOS SOLUTIONS
             </motion.h2>
@@ -270,7 +270,7 @@ const HomePage = () => {
         <div className="container relative px-4 py-24 mx-auto">
           {/* Header */}
           <div className="mb-16 text-center">
-            <h2 className="text-5xl font-bold text-transparent bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text">
+            <h2 className="font-sans text-5xl font-bold text-transparent bg-gradient-to-r from-blue-900 to-blue-600 bg-clip-text">
               À PROPOS DE NOUS
             </h2>
             <div className="flex justify-center mt-4">
@@ -288,9 +288,7 @@ const HomePage = () => {
                     Notre Expertise
                   </h3>
                   <p className="text-lg leading-relaxed text-blue-800/80">
-                    Spécialiste du marketing digital et du traitement des données massives
-                    (Bigdata). Notre expertise nous permet d'offrir des solutions innovantes
-                    et performantes à nos clients.
+                    Notre approche résolument omnicanal mêle emailing, SMS, télémarketing, Google Ads, Facebook Ads...
                   </p>
                 </div>
 
@@ -299,8 +297,7 @@ const HomePage = () => {
                     Notre Équipe
                   </h3>
                   <p className="text-lg leading-relaxed text-blue-50">
-                    KONTIKI SERVICE compte aujourd'hui plus de
-                    30 collaborateurs passionnés et experts dans leurs domaines.
+                    Nous accompagnons nos clients internationaux pour l'acquisition, la qualification et la fidélisation de leurs prospects et clients.
                   </p>
                 </div>
               </div>
@@ -312,7 +309,7 @@ const HomePage = () => {
                   <span className="mt-2 text-blue-600">Collaborateurs</span>
                 </div>
                 <div className="flex flex-col items-center justify-center p-6 text-center transition-shadow duration-300 bg-white shadow-xl rounded-2xl hover:shadow-2xl">
-                  <span className="text-4xl font-bold text-blue-900">10+</span>
+                  <span className="text-4xl font-bold text-blue-900">6+</span>
                   <span className="mt-2 text-blue-600">Années d'expérience</span>
                 </div>
                 <div className="flex flex-col items-center justify-center col-span-2 p-6 text-center transition-shadow duration-300 bg-white shadow-xl rounded-2xl hover:shadow-2xl">
@@ -322,7 +319,7 @@ const HomePage = () => {
                     </svg>
                   </div>
                   <span className="text-xl font-semibold text-blue-900">
-                    Expert en Marketing Digital & Big Data
+                    Kontiki Service est spécialiste du marketing relationnel digital
                   </span>
                 </div>
               </div>

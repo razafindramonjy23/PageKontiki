@@ -9,6 +9,7 @@ import user1 from '../../../assets/Images/pages/a_propos/user1.jpg'
 import user2 from '../../../assets/Images/pages/a_propos/user2.jpg'
 import user3 from '../../../assets/Images/pages/a_propos/user3.jpg'
 import user4 from '../../../assets/Images/pages/a_propos/user4.jpg'
+import user5 from '../../../assets/Images/pages/a_propos/user5.jpg'
 import vision from '../../../assets/Images/pages/a_propos/vision.png'
 import europeens from '../../../assets/Images/pages/a_propos/europeens.jpg'
 import rita from '../../../assets/Images/pages/a_propos/Rita.jpg'
@@ -68,9 +69,9 @@ function A_propos() {
         >
           <div className="container flex flex-col items-center px-4 mx-auto lg:flex-row">
             <div className="text-center lg:text-left lg:w-1/2">
-              <h2 className="mb-4 text-5xl font-bold text-blue-800">KONTIKI SERVICES</h2>
+              <h2 className="mb-4 text-5xl font-bold text-blue-800">NOS FORCES</h2>
               <p className="mb-6 text-xl font-semibold transition-transform duration-300 ease-in-out text-amber-500 hover:scale-110">
-                La première Application de Kontiki Sevices à Madagascar
+              Equipe jeune, dynamique et compétente
               </p>
 
 
@@ -173,7 +174,6 @@ function A_propos() {
         </div>
       </section>
 
-      {/* Nouvelle section Partenaires */}
       <section className="relative py-32 bg-white/50">
         <div className="container relative px-6 mx-auto">
           <div className="mb-20 text-center">
@@ -181,7 +181,7 @@ function A_propos() {
               Notre partenaire de services
             </h2>
             <div className="flex justify-center mt-4">
-              <div className="w-32 h-2 mb-20 rounded-full bg-gradient-to-r from-blue-600 to-amber-400"></div>
+              <div className="w-32 h-2 mb-20 rounded-full bg-gradient-to-r from-amber-400 to-amber-400"></div>
             </div>
           </div>
 
@@ -208,17 +208,18 @@ function A_propos() {
               viewport={{ once: true }}
               className="flex items-center"
             >
-              <p className="text-2xl font-light leading-relaxed text-blue-700">
-                L'agence propose à ses clients européens des prestations de 
+              <p className="text-2xl font-light leading-relaxed text-blue-950">
+                L'agence propose à ses clients européens des prestations de
                 <span className="font-medium"> publicité digitale</span>,
-                de <span className="font-medium">conseil en communication</span> et CRM, 
-                de <span className="font-medium">génération de prospects qualifiés</span> et 
+                de <span className="font-medium">conseil en communication</span> et CRM,
+                de <span className="font-medium">génération de prospects qualifiés</span> et
                 d'animation de bases de contacts.
               </p>
             </motion.div>
           </div>
         </div>
       </section>
+
 
 
       {/* Team Section */}
@@ -231,19 +232,19 @@ function A_propos() {
       >
         <div className="container relative px-6 mx-auto">
           <div className="mb-20 text-center">
-            <h2 className="text-4xl font-bold text-blue-800 md:text-5xl">Notre équipe de Superviseurs</h2>
-            <p className="max-w-2xl mx-auto mt-8 text-xl text-blue-700">
+            <h2 className="text-4xl font-bold text-blue-900 md:text-5xl">Notre équipe de Superviseurs</h2>
+            <p className="max-w-2xl mx-auto mt-8 text-xl text-blue-800">
               Chaque département possède leurs propre Superviseurs.
             </p>
           </div>
 
           <div className="grid gap-12 md:grid-cols-3">
             {[
-              { img: user1, name: "Rita Kontiki", role: "Commercial", description: "Description", dept: "/marketing" },
+              { img: user1, name: "Rita Kontiki", role: "Commercial", description: "Description", dept: "/commercial" },
               { img: user2, name: "Mamisoa Kontiki", role: "Affiliate", description: "Bonjour", dept: "/rd" },
               { img: user3, name: "Andre Kontiki", role: "Dévellopeur", description: "Nous sommes là pour vous", dept: "/dev" },
               { img: user4, name: "Deddy Kontiki", role: "Trafic Manager", description: "Nous sommes la team call", dept: "/am" },
-              { img: user3, name: "Landy Kontiki", role: "RD", description: "hello", dept: "/tm" }
+              { img: user5, name: "Landy Kontiki", role: "RD", description: "hello", dept: "/tm" }
             ].map((member, index) => (
               <div key={index} className="relative p-8 transition-all duration-500 shadow-lg group bg-white/80 backdrop-blur-sm rounded-2xl hover:scale-105 hover:shadow-blue-200">
                 <div className="absolute inset-x-0 flex justify-center -top-16">

@@ -160,6 +160,7 @@ const SolutionsPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-200 to-white">
+      
       {/* Hero Section */}
       <section className="px-4 pt-32 pb-20">
         <div className="max-w-6xl mx-auto text-center">

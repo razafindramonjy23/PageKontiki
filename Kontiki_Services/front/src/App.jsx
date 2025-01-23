@@ -11,11 +11,12 @@ import Services from './components/pages/Services/Services.jsx'
 import Contact from './components/pages/Contact/Contact.jsx'
 import A_propos from './components/pages/A_propos/Apropos.jsx';
 
-import './App.scss';
+import BtnContact from './components/utility/BtnContact.jsx'
 
+
+import './App.scss';
 // import EditeurDeCode from './components/pages/Test/allTest/testDev/Code-editor.js';
 // import EntretienDev from './components/pages/Test/allTest/testDev/Entretien.js'
-
 
 // RECRUTEMENT
 import EditeurDeCode from './components/pages/Test/allTest/testDev/Code-editor.jsx'
@@ -54,17 +55,11 @@ function App() {
         <Route path='/entretienDev' element={<EntretienDev />} />
         <Route path='/entretienTM' element={<EntretienTM/>} />
 
-
-        {/* Fiche de postes */}
+        {/* Fiche de postes par departements */}
         <Route path='/commercial' element={<Commercial />} />
-
 
         {/* A PROPOS  */}
         <Route path='A_propos' element={<A_propos />} />
-
-
-        
-
 
         {/* Route protegee */}
         {/* <Route path='/dmin' 
@@ -77,6 +72,7 @@ function App() {
       </Routes>
 
       <Footer />
+      <BtnContact/>
     </>
   )
 }
